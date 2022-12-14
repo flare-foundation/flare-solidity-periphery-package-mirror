@@ -1,0 +1,21 @@
+{
+    "name": "@flarenetwork/flare-periphery-contracts",
+    "version": "0.0.3",
+    "description": "Solidity smart contracts for all flare chains",
+    "dependencies": {
+        "@openzeppelin/contracts": "3.4.0"
+    },
+    "devDependencies": {
+    },
+    "scripts": {
+    },
+    "author": "Flare Network",
+    "license": "MIT",
+    "files": [
+        "coston",
+        "coston2",
+        "songbird",
+        "flare"
+    ],
+    "keywords": ["flare", "flarenetwork", "songbird", "smart contracts", "defi", "state connector", "ftso"]
+}
