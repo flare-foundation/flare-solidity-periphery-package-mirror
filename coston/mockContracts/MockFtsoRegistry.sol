@@ -2,9 +2,9 @@
 pragma solidity >=0.7.6 <0.9;
 pragma abicoder v2;
 
-import "../contracts/ftso/interface/IIFtso.sol";
-import "../contracts/genesis/interface/IFtsoRegistryGenesis.sol";
-import { IFtsoRegistry } from "../contracts/userInterfaces/IFtsoRegistry.sol";
+import "../ftso/ftso/interface/IIFtso.sol";
+import "../ftso/genesis/interface/IFtsoRegistryGenesis.sol";
+import { IFtsoRegistry } from "../ftso/userInterfaces/IFtsoRegistry.sol";
 
 struct Price {
     uint256 price;
@@ -19,7 +19,7 @@ contract MockFtsoRegistry is IFtsoRegistry {
     mapping (uint256 => string) public ftsoSymbols;
     uint256[] public supportedIndices;
     IIFtso[] public ftsos;
-    
+
     function addFtso(IIFtso _ftsoContract) external returns(uint256) {
         uint256 index = ftsos.length;
         ftsos.push(_ftsoContract);

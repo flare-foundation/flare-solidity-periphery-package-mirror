@@ -4,7 +4,7 @@ pragma solidity >=0.7.6 <0.9;
 // Warning: due to different implementations of 
 // wrapping this mock contract might not work as expected under 0.7 vs 0.8 version of solidity
 
-import "../contracts/ftso/interface/IIFtso.sol";
+import "../ftso/ftso/interface/IIFtso.sol";
 
 
 contract MockFtso is IIFtso {
@@ -13,14 +13,20 @@ contract MockFtso is IIFtso {
     
     uint256 private price;
     uint256 private priceTimestamp;
+    uint256 private decimals;
 
     uint256 private priceFromTrustedProviders;
     uint256 private priceTimestampFromTrustedProviders;
     
-    constructor(string memory _symbol) {
+    constructor(string memory _symbol, uint256 _decimals) {
         symbol = _symbol;
+        decimals = _decimals;
     }
     
+    function setDecimals(uint256 _decimals) external {
+        decimals = _decimals;
+    }
+
     function setCurrentPrice(uint256 _price, uint256 _ageSeconds) external {
         price = _price;
         priceTimestamp = block.timestamp - _ageSeconds;
@@ -33,12 +39,20 @@ contract MockFtso is IIFtso {
     
     // in FAsset system, we only need current price
     
-    function getCurrentPrice() external view returns (uint256 _price, uint256 _timestamp) {
+    function getCurrentPrice() external view override returns (uint256 _price, uint256 _timestamp) {
         return (price, priceTimestamp);
     }
     
-    function getCurrentPriceFromTrustedProviders() external view returns (uint256 _price, uint256 _timestamp) {
+    function getCurrentPriceWithDecimals() external view override returns (uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals) {
+        return (price, priceTimestamp, decimals);
+    }
+
+    function getCurrentPriceFromTrustedProviders() external view override returns (uint256 _price, uint256 _timestamp) {
         return (priceFromTrustedProviders, priceTimestampFromTrustedProviders);
+    }
+
+    function getCurrentPriceWithDecimalsFromTrustedProviders() external view override returns (uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals) {
+        return (priceFromTrustedProviders, priceTimestampFromTrustedProviders, decimals);
     }
 
     // unused

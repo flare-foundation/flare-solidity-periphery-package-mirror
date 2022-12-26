@@ -2,9 +2,9 @@
 pragma solidity >=0.7.6 <0.9;
 pragma abicoder v2;
 
-import "../contracts/ftso/interface/IIFtso.sol";
-import "../contracts/genesis/interface/IFtsoRegistryGenesis.sol";
-import { IFtsoRegistry } from "../contracts/userInterfaces/IFtsoRegistry.sol";
+import "../ftso/ftso/interface/IIFtso.sol";
+import "../ftso/genesis/interface/IFtsoRegistryGenesis.sol";
+import { IFtsoRegistry } from "../ftso/userInterfaces/IFtsoRegistry.sol";
 
 struct Price {
     uint256 price;

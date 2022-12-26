@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import "../contracts/genesis/interface/IFtsoGenesis.sol";
-import "../contracts/genesis/interface/IFtsoRegistryGenesis.sol";
-import "../contracts/genesis/interface/IFtsoManagerGenesis.sol";
-import { IPriceSubmitter } from "../contracts/userInterfaces/IPriceSubmitter.sol";
+import "../ftso/genesis/interface/IFtsoGenesis.sol";
+import "../ftso/genesis/interface/IFtsoRegistryGenesis.sol";
+import "../ftso/genesis/interface/IFtsoManagerGenesis.sol";
+import { IPriceSubmitter } from "../ftso/userInterfaces/IPriceSubmitter.sol";
 
 contract GatewayPriceSubmitter is IPriceSubmitter {
     

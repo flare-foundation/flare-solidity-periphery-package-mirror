@@ -4,7 +4,7 @@ pragma solidity >=0.7.6 <0.9;
 // Warning: due to different implementations of 
 // wrapping this mock contract might not work as expected under 0.7 vs 0.8 version of solidity
 
-import "../contracts/ftso/interface/IIFtso.sol";
+import "../ftso/ftso/interface/IIFtso.sol";
 
 
 contract MockFtso is IIFtso {

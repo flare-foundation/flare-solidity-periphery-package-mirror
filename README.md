@@ -27,9 +27,25 @@ Each of the networks has its own folder and subfolders for interfaces of specifi
 │ ├─mockContracts/
 │ └─stateConnector/
 ├─flare/
-│ ├─contracts/
-│ ├─mockContracts/
+  README.md (what is flare, link to test chain)
+│ ├─ftso/
+      README.md (link to docs, what to expect from this folder, how its meant to be used, )
+     - examples
+│ ├─governance/
+     - examples
+     README.md (you should think about using this if you want to do X, Y, Z on Flare)
+  - Token pools
+│ ├─utils/
+     - examples
+    README.md
 │ └─stateConnector/
+     - examples
+     README.md
+│ ├─mockContracts/
+     -
+  - CrosssProductExamples
+      /Big token on state connector
+      / custom state connector with claiming functions
 └─examples/
   ├─coston/
   ├─coston2/
