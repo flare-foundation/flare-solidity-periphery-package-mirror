@@ -1,6 +1,6 @@
 {
     "name": "@flarenetwork/flare-periphery-contracts",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Solidity smart contracts for all flare chains",
     "dependencies": {
         "@openzeppelin/contracts": "3.4.0"

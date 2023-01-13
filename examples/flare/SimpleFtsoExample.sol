@@ -2,19 +2,19 @@
 
 pragma solidity ^0.8.6;
 
-import { IFtso } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IFtso.sol";
-import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IPriceSubmitter.sol";
-import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IFtsoRegistry.sol";
+import { IFtso } from "@flarenetwork/flare-periphery-contracts/flare/ftso/userInterfaces/IFtso.sol";
+import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/flare/ftso/userInterfaces/IPriceSubmitter.sol";
+import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/flare/ftso/userInterfaces/IFtsoRegistry.sol";
 
-contract SimpleFtsoExample is IERC20Metadata {
+contract SimpleFtsoExample {
 
     function getPriceSubmitter() public virtual view returns(IPriceSubmitter) {
         return IPriceSubmitter(0x1000000000000000000000000000000000000003);
     }
 
-    function getTokenPriceWei() public view returns(uint256 _price, uint256 _timestamp) {
+    function getTokenPriceWei(string memory foreignTokenSymbol) public view returns(uint256 _price, uint256 _timestamp, uint256 _decimals) {
         IFtsoRegistry ftsoRegistry = IFtsoRegistry(address(getPriceSubmitter().getFtsoRegistry()));
-        (uint256 _price, uint256 _timestamp) = ftsoRegistry.getCurrentPrice(foreignTokenSymbol);
+        (_price, _timestamp, _decimals) = ftsoRegistry.getCurrentPriceWithDecimals(foreignTokenSymbol);
     }
 
 }

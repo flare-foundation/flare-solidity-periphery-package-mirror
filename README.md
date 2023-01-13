@@ -14,48 +14,42 @@ Basic familiarity with the Flare network and EVM is assumed for use. For more in
 Each of the networks has its own folder and subfolders for interfaces of specific flare based technologies. The folder structure is as follows:
 
 ```
-├─coston2/
-│ ├─contracts/
-│ ├─mockContracts/
-│ └─stateConnector/
-├─coston/
-│ ├─contracts/
-│ ├─mockContracts/
-│ └─stateConnector/
-├─songbird/
-│ ├─contracts/
-│ ├─mockContracts/
-│ └─stateConnector/
-├─flare/
-  README.md (what is flare, link to test chain)
-│ ├─ftso/
-      README.md (link to docs, what to expect from this folder, how its meant to be used, )
-     - examples
-│ ├─governance/
-     - examples
-     README.md (you should think about using this if you want to do X, Y, Z on Flare)
-  - Token pools
-│ ├─utils/
-     - examples
-    README.md
-│ └─stateConnector/
-     - examples
-     README.md
-│ ├─mockContracts/
-     -
-  - CrosssProductExamples
-      /Big token on state connector
-      / custom state connector with claiming functions
-└─examples/
-  ├─coston/
-  ├─coston2/
-  ├─flare/
-  └─songbird/
+├── coston
+│   ├── distribution
+│   ├── ftso
+│   ├── governance
+│   ├── inflation
+│   ├── mockContracts
+│   ├── stateConnector
+│   └── util-contracts
+├── coston2
+│   ├── distribution
+│   ├── ftso
+│   ├── governance
+│   ├── mockContracts
+│   ├── stateConnector
+│   └── util-contracts
+├── examples
+│   ├── coston
+│   ├── coston2
+│   ├── flare
+│   └── songbird
+├── flare
+│   ├── distribution
+│   ├── ftso
+│   ├── governance
+│   ├── mockContracts
+│   ├── stateConnector
+│   └── util-contracts
+└── songbird
+    ├── distribution
+    ├── ftso
+    ├── governance
+    ├── inflation
+    ├── mockContracts
+    ├── stateConnector
+    └── util-contracts
 ```
-
-- **contracts/**: Contains the interfaces of the smart contracts for **FTSO**(delegation, claiming, deposit), **Governance**, **WNAT** deployed on the network.
-- **mockContracts/**: Contains a set of mock contracts for testing purposes. This contracts are not deployed on the network and are not intended for production use. Their only purpose is to provide a set of contracts that can be used for quick tests. Any advanced testing should be done with project specific mocks and testing suites.
-- **stateConnector/**: Contains the interfaces of the smart contracts for **State Connector** and **Attestation client** system deployed on the network.
 
 ## Example usages
 
@@ -74,15 +68,15 @@ import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/flare/c
 import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IFtsoRegistry.sol";
 ```
 
-Very simple contract that can consume the FTSO prices is shown in `examples/newtorkName/SimpleFtsoExample.sol`.
+Very simple contract that can consume the FTSO prices is shown in `examples/networkName/SimpleFtsoExample.sol`.
 
 An example usage of the FTSO system to dynamically price token in a contract is showcased in
-`examples/netowrkName/DynamicToken.sol` with a more detailed explanation in the [blogpost](https://medium.com/@j0-0sko/taking-it-up-to-11-74dd91c39c2b).
+`examples/network/DynamicToken.sol` with a more detailed explanation in the [blogpost](https://medium.com/@j0-0sko/taking-it-up-to-11-74dd91c39c2b).
 
 
 ### I want to confirm something using the attestation client
 
-TODO
+Coming soon.
 
 ------
 
