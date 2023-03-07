@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.7.6 <0.9;
+pragma solidity >=0.7.6 <0.9.0;
 pragma abicoder v2;
 
 import "../ftso/ftso/interface/IIFtso.sol";
 import "../ftso/genesis/interface/IFtsoRegistryGenesis.sol";
-import { IFtsoRegistry } from "../ftso/userInterfaces/IFtsoRegistry.sol";
-
+import {IFtsoRegistry} from "../ftso/userInterfaces/IFtsoRegistry.sol";
 
 struct Price {
     uint256 price;
@@ -14,13 +13,13 @@ struct Price {
 
 contract MockFtsoRegistry is IFtsoRegistry {
     IIFtso[] private ftsos;
-    mapping (string => IFtsoRegistry.PriceInfo) public prices;
+    mapping(string => IFtsoRegistry.PriceInfo) public prices;
 
-    mapping (string => uint256) public ftsoIndices;
-    mapping (uint256 => string) public ftsoSymbols;
+    mapping(string => uint256) public ftsoIndices;
+    mapping(uint256 => string) public ftsoSymbols;
     uint256[] public supportedIndices;
 
-    function addFtso(IIFtso _ftsoContract) external returns(uint256) {
+    function addFtso(IIFtso _ftsoContract) external returns (uint256) {
         uint256 index = ftsos.length;
         ftsos.push(_ftsoContract);
         ftsoIndices[_ftsoContract.symbol()] = index;
@@ -28,8 +27,11 @@ contract MockFtsoRegistry is IFtsoRegistry {
         supportedIndices.push(index);
         return index;
     }
-    
-    function setSupportedIndices(uint256[] memory _supportedIndices, string[] memory _symbols) external {
+
+    function setSupportedIndices(
+        uint256[] memory _supportedIndices,
+        string[] memory _symbols
+    ) external {
         supportedIndices = _supportedIndices;
         ftsos = new IIFtso[](0);
         for (uint256 i = 0; i < _supportedIndices.length; i++) {
@@ -37,20 +39,39 @@ contract MockFtsoRegistry is IFtsoRegistry {
             ftsoSymbols[_supportedIndices[i]] = _symbols[i];
             ftsos.push(IIFtso(address(0)));
         }
-
     }
 
-    function setPriceForSymbol(string memory _symbol, uint256 _price, uint256 _timestamp, uint256 decimals) public {
+    function setPriceForSymbol(
+        string memory _symbol,
+        uint256 _price,
+        uint256 _timestamp,
+        uint256 decimals
+    ) public {
         uint256 ftsoIndex = ftsoIndices[_symbol];
-        prices[_symbol] = IFtsoRegistry.PriceInfo(ftsoIndex, _price, _timestamp, decimals);
+        prices[_symbol] = IFtsoRegistry.PriceInfo(
+            ftsoIndex,
+            _price,
+            decimals,
+            _timestamp
+        );
     }
 
-    function setPriceForIndex(uint256 _ftsoIndex, uint256 _price, uint256 _timestamp, uint256 decimals) public {
+    function setPriceForIndex(
+        uint256 _ftsoIndex,
+        uint256 _price,
+        uint256 _timestamp,
+        uint256 decimals
+    ) public {
         string memory symbol = ftsoSymbols[_ftsoIndex];
         setPriceForSymbol(symbol, _price, _timestamp, decimals);
     }
 
-    function getFtsos(uint256[] memory _indices) external view returns(IFtsoGenesis[] memory _ftsos) {
+    function getFtsos(uint256[] memory _indices)
+        external
+        view
+        override
+        returns (IFtsoGenesis[] memory _ftsos)
+    {
         _ftsos = new IFtsoGenesis[](_indices.length);
         for (uint256 i = 0; i < _indices.length; i++) {
             require(_indices[i] < ftsos.length);
@@ -58,22 +79,42 @@ contract MockFtsoRegistry is IFtsoRegistry {
         }
     }
 
-    function getFtso(uint256 _ftsoIndex) external view override returns(IIFtso _activeFtsoAddress) {
+    function getFtso(uint256 _ftsoIndex)
+        external
+        view
+        override
+        returns (IIFtso _activeFtsoAddress)
+    {
         require(_ftsoIndex < ftsos.length);
         return ftsos[_ftsoIndex];
     }
 
-    function getFtsoBySymbol(string memory _symbol) external view override returns(IIFtso _activeFtsoAddress) {
+    function getFtsoBySymbol(string memory _symbol)
+        external
+        view
+        override
+        returns (IIFtso _activeFtsoAddress)
+    {
         return this.getFtso(this.getFtsoIndex(_symbol));
     }
 
-    function getFtsoIndex(string memory _symbol) external view override returns (uint256) {
+    function getFtsoIndex(string memory _symbol)
+        external
+        view
+        override
+        returns (uint256)
+    {
         uint256 index = ftsoIndices[_symbol];
         require(index > 0, "unknown ftso symbol");
         return index - 1;
     }
 
-    function getSupportedIndices() external view override returns(uint256[] memory _supportedIndices) {
+    function getSupportedIndices()
+        external
+        view
+        override
+        returns (uint256[] memory _supportedIndices)
+    {
         return supportedIndices;
     }
 
@@ -89,7 +130,12 @@ contract MockFtsoRegistry is IFtsoRegistry {
         }
     }
 
-    function getSupportedFtsos() external view override returns(IIFtso[] memory _ftsos) {
+    function getSupportedFtsos()
+        external
+        view
+        override
+        returns (IIFtso[] memory _ftsos)
+    {
         return ftsos;
     }
 
@@ -122,43 +168,66 @@ contract MockFtsoRegistry is IFtsoRegistry {
         return (price.price, price.timestamp);
     }
 
-    function getCurrentPriceWithDecimals(uint256 _assetIndex) 
-        external 
+    function getCurrentPriceWithDecimals(uint256 _assetIndex)
+        external
         view
         override
-        returns (uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals)
+        returns (
+            uint256 _price,
+            uint256 _timestamp,
+            uint256 _assetPriceUsdDecimals
+        )
     {
         string memory symbol = ftsoSymbols[_assetIndex];
         IFtsoRegistry.PriceInfo memory price = prices[symbol];
         return (price.price, price.timestamp, price.decimals);
     }
 
-    function getCurrentPriceWithDecimals(string memory _symbol) 
-        external 
+    function getCurrentPriceWithDecimals(string memory _symbol)
+        external
         view
         override
-        returns (uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals)
+        returns (
+            uint256 _price,
+            uint256 _timestamp,
+            uint256 _assetPriceUsdDecimals
+        )
     {
         IFtsoRegistry.PriceInfo memory price = prices[_symbol];
         return (price.price, price.timestamp, price.decimals);
     }
 
-    function getAllCurrentPrices() external view returns (IFtsoRegistry.PriceInfo[] memory _prices) {
+    function getAllCurrentPrices()
+        external
+        view
+        override
+        returns (IFtsoRegistry.PriceInfo[] memory _prices)
+    {
         _prices = new IFtsoRegistry.PriceInfo[](supportedIndices.length);
         for (uint256 i = 0; i < supportedIndices.length; i++) {
             _prices[i] = prices[ftsoSymbols[supportedIndices[i]]];
         }
     }
 
-    function getCurrentPricesByIndices(uint256[] memory _indices) external view returns (PriceInfo[] memory){
+    function getCurrentPricesByIndices(uint256[] memory _indices)
+        external
+        view
+        override
+        returns (PriceInfo[] memory)
+    {
         PriceInfo[] memory _prices = new PriceInfo[](_indices.length);
         for (uint256 i = 0; i < _indices.length; i++) {
             _prices[i] = prices[ftsoSymbols[_indices[i]]];
         }
         return _prices;
     }
-    
-    function getCurrentPricesBySymbols(string[] memory _symbols) external view returns (PriceInfo[] memory){
+
+    function getCurrentPricesBySymbols(string[] memory _symbols)
+        external
+        view
+        override
+        returns (PriceInfo[] memory)
+    {
         PriceInfo[] memory _prices = new PriceInfo[](_symbols.length);
         for (uint256 i = 0; i < _symbols.length; i++) {
             _prices[i] = prices[_symbols[i]];
