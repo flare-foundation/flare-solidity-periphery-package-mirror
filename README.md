@@ -64,8 +64,15 @@ The `IFtsoRegistry` interface is available in
 To use the interfaces deployed on `Flare` network, just import them in your contract source:
 
 ```solidity
-import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IPriceSubmitter.sol";
-import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/flare/contracts/userInterfaces/IFtsoRegistry.sol";
+import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/flare/ftso/userInterfaces/IPriceSubmitter.sol";
+import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/flare/ftso/userInterfaces/IFtsoRegistry.sol";
+```
+
+If you are using Foundry, you can install the interfaces with Forge and import them in your contract source:
+
+```solidity
+import { IPriceSubmitter } from "flare-periphery-contracts/flare/ftso/userInterfaces/IPriceSubmitter.sol";
+import { IFtsoRegistry } from "flare-periphery-contracts/flare/ftso/userInterfaces/IFtsoRegistry.sol";
 ```
 
 Very simple contract that can consume the FTSO prices is shown in `examples/networkName/SimpleFtsoExample.sol`.

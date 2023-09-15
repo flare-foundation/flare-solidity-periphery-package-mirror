@@ -2,23 +2,22 @@
 
 pragma solidity ^0.8.6;
 
-import { IERC20Metadata } from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import { IFtso } from "@flarenetwork/flare-periphery-contracts/coston2/ftso/userInterfaces/IFtso.sol";
-import { IPriceSubmitter } from "@flarenetwork/flare-periphery-contracts/coston2/ftso/userInterfaces/IPriceSubmitter.sol";
-import { IFtsoRegistry } from "@flarenetwork/flare-periphery-contracts/coston2/ftso/userInterfaces/IFtsoRegistry.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {IFtso} from "../../coston2/ftso/userInterfaces/IFtso.sol";
+import {IPriceSubmitter} from "../../coston2/ftso/userInterfaces/IPriceSubmitter.sol";
+import {IFtsoRegistry} from "../../coston2/ftso/userInterfaces/IFtsoRegistry.sol";
 
 error InsufficientBalance(uint256 available, uint256 required);
 error OnylOwner();
 error SupplyCeiling();
-
 
 contract DynamicToken is IERC20Metadata {
     string public override name;
     string public override symbol;
     uint8 public override decimals;
 
-    mapping (address => uint256) private _balances;
-    mapping (address => mapping (address => uint256)) private _allowances;
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
 
     address public immutable owner;
 
@@ -29,22 +28,22 @@ contract DynamicToken is IERC20Metadata {
     uint256 public immutable maxSupply;
     uint256 public override totalSupply;
 
-    modifier onlyOwner(){
-        if(msg.sender != owner){
+    modifier onlyOwner() {
+        if (msg.sender != owner) {
             revert OnylOwner();
         }
         _;
     }
 
-    constructor (
+    constructor(
         uint256 _maxSupply,
         string memory _name,
         string memory _symbol,
         uint8 _decimals,
         string memory _nativeTokenSymbol,
         string memory _foreignTokenSymbol,
-        uint256 _tokensPerForeignToken) 
-    {        
+        uint256 _tokensPerForeignToken
+    ) {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
@@ -55,24 +54,20 @@ contract DynamicToken is IERC20Metadata {
         tokensPerForeignToken = _tokensPerForeignToken;
     }
 
-    function getPriceSubmitter() public virtual view returns(IPriceSubmitter) {
+    function getPriceSubmitter() public view virtual returns (IPriceSubmitter) {
         return IPriceSubmitter(0x1000000000000000000000000000000000000003);
     }
 
-    function balanceOf(address account)
-        external
-        view
-        override
-        returns (uint256)
-    {
+    function balanceOf(
+        address account
+    ) external view override returns (uint256) {
         return _balances[account];
     }
 
-    function transfer(address to, uint256 amount)
-        external
-        override
-        returns (bool)
-    {
+    function transfer(
+        address to,
+        uint256 amount
+    ) external override returns (bool) {
         if (amount > _balances[msg.sender]) {
             revert InsufficientBalance(_balances[msg.sender], amount);
         }
@@ -83,20 +78,17 @@ contract DynamicToken is IERC20Metadata {
         return true;
     }
 
-    function allowance(address _owner, address spender)
-        external
-        view
-        override
-        returns (uint256)
-    {
+    function allowance(
+        address _owner,
+        address spender
+    ) external view override returns (uint256) {
         return _allowances[_owner][spender];
     }
 
-    function approve(address spender, uint256 amount)
-        external
-        override
-        returns (bool)
-    {
+    function approve(
+        address spender,
+        uint256 amount
+    ) external override returns (bool) {
         _allowances[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
         return true;
@@ -122,23 +114,33 @@ contract DynamicToken is IERC20Metadata {
         return true;
     }
 
-    function getTokenPriceWei() public view returns(uint256 natWeiPerToken) {
-        IFtsoRegistry ftsoRegistry = IFtsoRegistry(address(getPriceSubmitter().getFtsoRegistry()));
-        (uint256 foreignTokenToUsd, ) = ftsoRegistry.getCurrentPrice(foreignTokenSymbol);
+    function getTokenPriceWei() public view returns (uint256 natWeiPerToken) {
+        IFtsoRegistry ftsoRegistry = IFtsoRegistry(
+            address(getPriceSubmitter().getFtsoRegistry())
+        );
+        (uint256 foreignTokenToUsd, ) = ftsoRegistry.getCurrentPrice(
+            foreignTokenSymbol
+        );
         uint256 foreignTokenFTSODecimals = 5;
-        (uint256 nativeToUsd, ) = ftsoRegistry.getCurrentPrice(nativeTokenSymbol);
+        (uint256 nativeToUsd, ) = ftsoRegistry.getCurrentPrice(
+            nativeTokenSymbol
+        );
         uint256 nativeTokenFTSODecimals = 5;
-        natWeiPerToken = (10 ** 18) * foreignTokenToUsd * (10**nativeTokenFTSODecimals) / (nativeToUsd * tokensPerForeignToken * (10 ** decimals) * (10**foreignTokenFTSODecimals));
+        natWeiPerToken =
+            ((10 ** 18) * foreignTokenToUsd * (10 ** nativeTokenFTSODecimals)) /
+            (nativeToUsd *
+                tokensPerForeignToken *
+                (10 ** decimals) *
+                (10 ** foreignTokenFTSODecimals));
     }
 
-    function _mint() private returns(uint256 tokenAmount){
-
+    function _mint() private returns (uint256 tokenAmount) {
         uint256 price = getTokenPriceWei();
 
         tokenAmount = msg.value / price;
         uint256 remainder = msg.value - tokenAmount * price;
 
-        if(totalSupply + tokenAmount > maxSupply){
+        if (totalSupply + tokenAmount > maxSupply) {
             revert SupplyCeiling();
         }
 
@@ -163,8 +165,7 @@ contract DynamicToken is IERC20Metadata {
         _mint();
     }
 
-    function withdrawFunds() onlyOwner external {
+    function withdrawFunds() external onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
-
 }

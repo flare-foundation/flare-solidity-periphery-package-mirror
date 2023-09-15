@@ -7,8 +7,8 @@ pragma solidity >=0.7.6 <0.9.0;
 import "../ftso/ftso/interface/IIFtso.sol";
 
 contract MockFtso is IIFtso {
-    bool public immutable active = true;
-    string public symbol;
+    bool public immutable override active = true;
+    string public override symbol;
 
     uint256 private price;
     uint256 private priceTimestamp;
@@ -271,5 +271,5 @@ contract MockFtso is IIFtso {
         )
     {}
 
-    function wNat() external view returns (IIVPToken) {}
+    function wNat() external view override returns (IIVPToken) {}
 }

@@ -7,8 +7,8 @@ pragma solidity >=0.7.6 <0.9.0;
 import "../ftso/ftso/interface/IIFtso.sol";
 
 contract MockFtso is IIFtso {
-    bool public immutable active = true;
-    string public symbol;
+    bool public immutable override active = true;
+    string public override symbol;
 
     uint256 private price;
     uint256 private priceTimestamp;
@@ -93,26 +93,17 @@ contract MockFtso is IIFtso {
 
     function getCurrentEpochId() external view override returns (uint256) {}
 
-    function getEpochId(uint256 _timestamp)
-        external
-        view
-        override
-        returns (uint256)
-    {}
+    function getEpochId(
+        uint256 _timestamp
+    ) external view override returns (uint256) {}
 
-    function getRandom(uint256 _epochId)
-        external
-        view
-        override
-        returns (uint256)
-    {}
+    function getRandom(
+        uint256 _epochId
+    ) external view override returns (uint256) {}
 
-    function getEpochPrice(uint256 _epochId)
-        external
-        view
-        override
-        returns (uint256)
-    {}
+    function getEpochPrice(
+        uint256 _epochId
+    ) external view override returns (uint256) {}
 
     function getPriceEpochData()
         external
@@ -138,12 +129,10 @@ contract MockFtso is IIFtso {
         )
     {}
 
-    function getEpochPriceForVoter(uint256 _epochId, address _voter)
-        external
-        view
-        override
-        returns (uint256)
-    {}
+    function getEpochPriceForVoter(
+        uint256 _epochId,
+        address _voter
+    ) external view override returns (uint256) {}
 
     function getCurrentPriceDetails()
         external
@@ -169,15 +158,17 @@ contract MockFtso is IIFtso {
         uint256 _wNatVP
     ) external override {}
 
-    function wNatVotePowerCached(address _voter, uint256 _epochId)
-        external
-        override
-        returns (uint256)
-    {}
+    function wNatVotePowerCached(
+        address _voter,
+        uint256 _epochId
+    ) external override returns (uint256) {}
 
     // IIFtso
 
-    function finalizePriceEpoch(uint256 _epochId, bool _returnRewardData)
+    function finalizePriceEpoch(
+        uint256 _epochId,
+        bool _returnRewardData
+    )
         external
         override
         returns (
@@ -211,6 +202,8 @@ contract MockFtso is IIFtso {
         uint256 _highAssetUSDThreshold,
         uint256 _highAssetTurnoutThresholdBIPS,
         uint256 _lowNatTurnoutThresholdBIPS,
+        uint256 _elasticBandRewardBIPS,
+        uint256 _elasticBandWidthPPM,
         address[] memory _trustedAddresses
     ) external override {}
 
@@ -242,6 +235,8 @@ contract MockFtso is IIFtso {
             uint256 _highAssetUSDThreshold,
             uint256 _highAssetTurnoutThresholdBIPS,
             uint256 _lowNatTurnoutThresholdBIPS,
+            uint256 _elasticBandRewardBIPS,
+            uint256 _elasticBandWidthPPM,
             address[] memory _trustedAddresses
         )
     {}
