@@ -4,16 +4,15 @@ pragma solidity ^0.8.0;
 import {IFlareContractRegistry} from "./userInterfaces/IFlareContractRegistry.sol";
 // Auto generated imports
 // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
-import {IStateConnector} from "../stateConnector/interface/IStateConnector.sol";
-import {IPriceSubmitter} from "../ftso/userInterfaces/IPriceSubmitter.sol";
-import {IFtsoRewardManager} from "../ftso/userInterfaces/IFtsoRewardManager.sol";
-import {IFtsoRegistry} from "../ftso/userInterfaces/IFtsoRegistry.sol";
-import {IVoterWhitelister} from "../ftso/userInterfaces/IVoterWhitelister.sol";
-import {IDistributionToDelegators} from "../distribution/userInterfaces/IDistributionToDelegators.sol";
-import {IFtsoManager} from "../ftso/userInterfaces/IFtsoManager.sol";
-import {IWNat} from "../util-contracts/token/userInterfaces/IWNat.sol";
-import {IGenericRewardManager} from "../util-contracts/tokenPools/userInterfaces/IGenericRewardManager.sol";
-
+import { IStateConnector } from "../stateConnector/interface/IStateConnector.sol";
+import { IPriceSubmitter } from "../ftso/userInterfaces/IPriceSubmitter.sol";
+import { IFtsoRewardManager } from "../ftso/userInterfaces/IFtsoRewardManager.sol";
+import { IFtsoRegistry } from "../ftso/userInterfaces/IFtsoRegistry.sol";
+import { IVoterWhitelister } from "../ftso/userInterfaces/IVoterWhitelister.sol";
+import { IDistributionToDelegators } from "../distribution/userInterfaces/IDistributionToDelegators.sol";
+import { IFtsoManager } from "../ftso/userInterfaces/IFtsoManager.sol";
+import { IWNat } from "../util-contracts/token/userInterfaces/IWNat.sol";
+import { IGenericRewardManager } from "../util-contracts/tokenPools/userInterfaces/IGenericRewardManager.sol"; 
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -77,85 +76,58 @@ library FlareContractsRegistryLibrary {
 
     // Nice typed getters for all the important contracts
     // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
-    function getStateConnector() internal view returns (IStateConnector) {
-        return
-            IStateConnector(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "StateConnector"
-                )
-            );
-    }
+    function getStateConnector() internal view returns(IStateConnector){
+return IStateConnector(FLARE_CONTRACT_REGISTRY.getContractAddressByName("StateConnector"));
 
-    function getPriceSubmitter() internal view returns (IPriceSubmitter) {
-        return
-            IPriceSubmitter(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "PriceSubmitter"
-                )
-            );
-    }
+}
 
-    function getFtsoRewardManager() internal view returns (IFtsoRewardManager) {
-        return
-            IFtsoRewardManager(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "FtsoRewardManager"
-                )
-            );
-    }
 
-    function getFtsoRegistry() internal view returns (IFtsoRegistry) {
-        return
-            IFtsoRegistry(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRegistry")
-            );
-    }
+function getPriceSubmitter() internal view returns(IPriceSubmitter){
+return IPriceSubmitter(FLARE_CONTRACT_REGISTRY.getContractAddressByName("PriceSubmitter"));
 
-    function getVoterWhitelister() internal view returns (IVoterWhitelister) {
-        return
-            IVoterWhitelister(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "VoterWhitelister"
-                )
-            );
-    }
+}
 
-    function getDistributionToDelegators()
-        internal
-        view
-        returns (IDistributionToDelegators)
-    {
-        return
-            IDistributionToDelegators(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "DistributionToDelegators"
-                )
-            );
-    }
 
-    function getFtsoManager() internal view returns (IFtsoManager) {
-        return
-            IFtsoManager(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoManager")
-            );
-    }
+function getFtsoRewardManager() internal view returns(IFtsoRewardManager){
+return IFtsoRewardManager(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRewardManager"));
 
-    function getWNat() internal view returns (IWNat) {
-        return IWNat(FLARE_CONTRACT_REGISTRY.getContractAddressByName("WNat"));
-    }
+}
 
-    function getValidatorRewardManager()
-        internal
-        view
-        returns (IGenericRewardManager)
-    {
-        return
-            IGenericRewardManager(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
-                    "ValidatorRewardManager"
-                )
-            );
-    }
 
+function getFtsoRegistry() internal view returns(IFtsoRegistry){
+return IFtsoRegistry(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRegistry"));
+
+}
+
+
+function getVoterWhitelister() internal view returns(IVoterWhitelister){
+return IVoterWhitelister(FLARE_CONTRACT_REGISTRY.getContractAddressByName("VoterWhitelister"));
+
+}
+
+
+function getDistributionToDelegators() internal view returns(IDistributionToDelegators){
+return IDistributionToDelegators(FLARE_CONTRACT_REGISTRY.getContractAddressByName("DistributionToDelegators"));
+
+}
+
+
+function getFtsoManager() internal view returns(IFtsoManager){
+return IFtsoManager(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoManager"));
+
+}
+
+
+function getWNat() internal view returns(IWNat){
+return IWNat(FLARE_CONTRACT_REGISTRY.getContractAddressByName("WNat"));
+
+}
+
+
+function getValidatorRewardManager() internal view returns(IGenericRewardManager){
+return IGenericRewardManager(FLARE_CONTRACT_REGISTRY.getContractAddressByName("ValidatorRewardManager"));
+
+}
+ 
     // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 }
