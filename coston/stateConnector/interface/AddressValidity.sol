@@ -4,10 +4,12 @@ pragma solidity >=0.7.6 <0.9;
 /**
  * @custom:name AddressValidity
  * @custom:id 0x05
- * @custom:supported BTC, DOGE, XRP
+ * @custom:supported BTC, DOGE, XRP, testBTC, testDOGE, testXRP
  * @author Flare
- * @notice An assertion that a string represents a valid address on an external chain.
+ * @notice An assertion whether a string represents a valid address on an external chain.
  * @custom:verification The address is checked against all validity criteria of the chain with `sourceId`.
+ * Indicator of validity is provided.
+ * If the address is valid, its standard form and standard hash are computed.
  * Validity criteria for each supported chain:
  * - [BTC](/specs/attestations/external-chains/address-validity/BTC.md)
  * - [DOGE](/specs/attestations/external-chains/address-validity/DOGE.md)
@@ -67,10 +69,12 @@ interface AddressValidity {
 
     /**
      * @notice Response body for AddressValidity attestation type
-     * @param standardAddress Standard form of the validated address.
-     * @param standardAddressHash Standard address hash of the validated address.
+     * @param isValid Boolean indicator of the address validity.
+     * @param standardAddress If `isValid`, standard form of the validated address. Otherwise an empty string.
+     * @param standardAddressHash If `isValid`, standard address hash of the validated address. Otherwise a zero bytes32 string.
      */
     struct ResponseBody {
+        bool isValid;
         string standardAddress;
         bytes32 standardAddressHash;
     }

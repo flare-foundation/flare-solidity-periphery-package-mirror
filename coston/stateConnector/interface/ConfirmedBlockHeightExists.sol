@@ -6,7 +6,8 @@ pragma solidity >=0.7.6 <0.9;
  * @custom:id 0x02
  * @custom:supported BTC, DOGE, XRP, testBTC, testDOGE, testXRP
  * @author Flare
- * @notice An assertion that a block with `blockNumber` is confirmed and data to compute the block production rate in the given time range.
+ * @notice An assertion that a block with `blockNumber` is confirmed.
+ * It also provides data to compute the block production rate in the given time range.
  * @custom:verification It is checked that the block with `blockNumber` is confirmed by at least `numberOfConfirmations`.
  * If it is not, the request is rejected. We note a block on the tip of the chain is confirmed by 1 block.
  * Then `lowestQueryWindowBlock` is determined and its number and timestamp are extracted.

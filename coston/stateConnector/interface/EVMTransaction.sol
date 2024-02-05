@@ -104,7 +104,7 @@ interface EVMTransaction {
      * @custom:below The fields are in line with [EVM event logs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges).
      * @param logIndex The consecutive number of the event in block.
      * @param emitterAddress The address of the contract that emitted the event.
-     * @param topics An array of up to four 32-byte strings of indexed log arguments. The first string is the signature of the event.
+     * @param topics An array of up to four 32-byte strings of indexed log arguments.
      * @param data Concatenated 32-byte strings of non-indexed log arguments. At least 32 bytes long.
      * @param removed It is `true` if the log was removed due to a chain reorganization and `false` if it is a valid log.
      */
