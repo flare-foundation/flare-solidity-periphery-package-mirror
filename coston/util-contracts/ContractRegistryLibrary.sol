@@ -123,42 +123,42 @@ return IWNat(FLARE_CONTRACT_REGISTRY.getContractAddressByName("WNat"));
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIEVMTransactionVerification() internal view returns(IEVMTransactionVerification){
+function auxiliaryGetIEVMTransactionVerification() internal view returns(IEVMTransactionVerification){
 return IEVMTransactionVerification(0xf37AD1278917c04fb291C75a42e61710964Cb57c);
 
 }
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIAddressValidityVerification() internal view returns(IAddressValidityVerification){
+function auxiliaryGetIAddressValidityVerification() internal view returns(IAddressValidityVerification){
 return IAddressValidityVerification(0xd94721da1dD5e222020D256fC073e8Be301ebdCB);
 
 }
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIBalanceDecreasingTransactionVerification() internal view returns(IBalanceDecreasingTransactionVerification){
+function auxiliaryGetIBalanceDecreasingTransactionVerification() internal view returns(IBalanceDecreasingTransactionVerification){
 return IBalanceDecreasingTransactionVerification(0xeDa84A2eeDfdA53e7c33ef5fDe7B2798B910BF4A);
 
 }
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIConfirmedBlockHeightExistsVerification() internal view returns(IConfirmedBlockHeightExistsVerification){
+function auxiliaryGetIConfirmedBlockHeightExistsVerification() internal view returns(IConfirmedBlockHeightExistsVerification){
 return IConfirmedBlockHeightExistsVerification(0x632A984d63f9Ae3C2Eb31e0dc2EeEaE1E282E0da);
 
 }
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIPaymentVerification() internal view returns(IPaymentVerification){
+function auxiliaryGetIPaymentVerification() internal view returns(IPaymentVerification){
 return IPaymentVerification(0x1ECe6dd08D19c0faf3AB8cEcB146cd5ea5b9b7d9);
 
 }
 
 
 // Returns hardcoded unofficial deployment instances of Flare core contracts
-function unofficialGetIReferencedPaymentNonexistenceVerification() internal view returns(IReferencedPaymentNonexistenceVerification){
+function auxiliaryGetIReferencedPaymentNonexistenceVerification() internal view returns(IReferencedPaymentNonexistenceVerification){
 return IReferencedPaymentNonexistenceVerification(0xDfE5926fABA166187B29C33BC95DfDb18bbE52cd);
 
 }
