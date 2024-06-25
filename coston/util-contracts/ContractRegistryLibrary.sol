@@ -4,19 +4,21 @@ pragma solidity ^0.8.0;
 import {IFlareContractRegistry} from "./userInterfaces/IFlareContractRegistry.sol";
 // Auto generated imports
 // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
-import { IStateConnector } from "../stateConnector/interface/IStateConnector.sol";
-import { IPriceSubmitter } from "../ftso/userInterfaces/IPriceSubmitter.sol";
-import { IFtsoRewardManager } from "../ftso/userInterfaces/IFtsoRewardManager.sol";
-import { IFtsoRegistry } from "../ftso/userInterfaces/IFtsoRegistry.sol";
-import { IVoterWhitelister } from "../ftso/userInterfaces/IVoterWhitelister.sol";
-import { IFtsoManager } from "../ftso/userInterfaces/IFtsoManager.sol";
-import { IWNat } from "../util-contracts/token/userInterfaces/IWNat.sol";
-import { IEVMTransactionVerification } from "../stateConnector/interface/IEVMTransactionVerification.sol";
-import { IAddressValidityVerification } from "../stateConnector/interface/IAddressValidityVerification.sol";
-import { IBalanceDecreasingTransactionVerification } from "../stateConnector/interface/IBalanceDecreasingTransactionVerification.sol";
-import { IConfirmedBlockHeightExistsVerification } from "../stateConnector/interface/IConfirmedBlockHeightExistsVerification.sol";
-import { IPaymentVerification } from "../stateConnector/interface/IPaymentVerification.sol";
-import { IReferencedPaymentNonexistenceVerification } from "../stateConnector/interface/IReferencedPaymentNonexistenceVerification.sol"; 
+import {IStateConnector} from "../stateConnector/interface/IStateConnector.sol";
+import {IPriceSubmitter} from "../ftso/userInterfaces/IPriceSubmitter.sol";
+import {IFtsoRewardManager} from "../ftso/userInterfaces/IFtsoRewardManager.sol";
+import {IFtsoRegistry} from "../ftso/userInterfaces/IFtsoRegistry.sol";
+import {IVoterWhitelister} from "../ftso/userInterfaces/IVoterWhitelister.sol";
+import {IFtsoManager} from "../ftso/userInterfaces/IFtsoManager.sol";
+import {IWNat} from "../util-contracts/token/userInterfaces/IWNat.sol";
+import {IEVMTransactionVerification} from "../stateConnector/interface/IEVMTransactionVerification.sol";
+import {IAddressValidityVerification} from "../stateConnector/interface/IAddressValidityVerification.sol";
+import {IBalanceDecreasingTransactionVerification} from "../stateConnector/interface/IBalanceDecreasingTransactionVerification.sol";
+import {IConfirmedBlockHeightExistsVerification} from "../stateConnector/interface/IConfirmedBlockHeightExistsVerification.sol";
+import {IPaymentVerification} from "../stateConnector/interface/IPaymentVerification.sol";
+import {IReferencedPaymentNonexistenceVerification} from "../stateConnector/interface/IReferencedPaymentNonexistenceVerification.sol";
+import {IFTSOFeedVerifier} from "./userInterfaces/IFTSOFeedVerifier.sol";
+import {IRelay} from "./userInterfaces/IRelay.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -80,88 +82,142 @@ library FlareContractsRegistryLibrary {
 
     // Nice typed getters for all the important contracts
     // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
-    function getStateConnector() internal view returns(IStateConnector){
-return IStateConnector(FLARE_CONTRACT_REGISTRY.getContractAddressByName("StateConnector"));
+    function getStateConnector() internal view returns (IStateConnector) {
+        return
+            IStateConnector(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
+                    "StateConnector"
+                )
+            );
+    }
 
-}
+    function getPriceSubmitter() internal view returns (IPriceSubmitter) {
+        return
+            IPriceSubmitter(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
+                    "PriceSubmitter"
+                )
+            );
+    }
 
+    function getFtsoRewardManager() internal view returns (IFtsoRewardManager) {
+        return
+            IFtsoRewardManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
+                    "FtsoRewardManager"
+                )
+            );
+    }
 
-function getPriceSubmitter() internal view returns(IPriceSubmitter){
-return IPriceSubmitter(FLARE_CONTRACT_REGISTRY.getContractAddressByName("PriceSubmitter"));
+    function getFtsoRegistry() internal view returns (IFtsoRegistry) {
+        return
+            IFtsoRegistry(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRegistry")
+            );
+    }
 
-}
+    function getVoterWhitelister() internal view returns (IVoterWhitelister) {
+        return
+            IVoterWhitelister(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName(
+                    "VoterWhitelister"
+                )
+            );
+    }
 
+    function getFtsoManager() internal view returns (IFtsoManager) {
+        return
+            IFtsoManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoManager")
+            );
+    }
 
-function getFtsoRewardManager() internal view returns(IFtsoRewardManager){
-return IFtsoRewardManager(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRewardManager"));
+    function getWNat() internal view returns (IWNat) {
+        return IWNat(FLARE_CONTRACT_REGISTRY.getContractAddressByName("WNat"));
+    }
 
-}
+    function getRelay() internal view returns (IRelay) {
+        return
+            IRelay(FLARE_CONTRACT_REGISTRY.getContractAddressByName("Relay"));
+    }
 
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIEVMTransactionVerification()
+        internal
+        view
+        returns (IEVMTransactionVerification)
+    {
+        return
+            IEVMTransactionVerification(
+                0xf37AD1278917c04fb291C75a42e61710964Cb57c
+            );
+    }
 
-function getFtsoRegistry() internal view returns(IFtsoRegistry){
-return IFtsoRegistry(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoRegistry"));
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIAddressValidityVerification()
+        internal
+        view
+        returns (IAddressValidityVerification)
+    {
+        return
+            IAddressValidityVerification(
+                0xd94721da1dD5e222020D256fC073e8Be301ebdCB
+            );
+    }
 
-}
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIBalanceDecreasingTransactionVerification()
+        internal
+        view
+        returns (IBalanceDecreasingTransactionVerification)
+    {
+        return
+            IBalanceDecreasingTransactionVerification(
+                0xeDa84A2eeDfdA53e7c33ef5fDe7B2798B910BF4A
+            );
+    }
 
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIConfirmedBlockHeightExistsVerification()
+        internal
+        view
+        returns (IConfirmedBlockHeightExistsVerification)
+    {
+        return
+            IConfirmedBlockHeightExistsVerification(
+                0x632A984d63f9Ae3C2Eb31e0dc2EeEaE1E282E0da
+            );
+    }
 
-function getVoterWhitelister() internal view returns(IVoterWhitelister){
-return IVoterWhitelister(FLARE_CONTRACT_REGISTRY.getContractAddressByName("VoterWhitelister"));
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIPaymentVerification()
+        internal
+        view
+        returns (IPaymentVerification)
+    {
+        return IPaymentVerification(0x1ECe6dd08D19c0faf3AB8cEcB146cd5ea5b9b7d9);
+    }
 
-}
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIReferencedPaymentNonexistenceVerification()
+        internal
+        view
+        returns (IReferencedPaymentNonexistenceVerification)
+    {
+        return
+            IReferencedPaymentNonexistenceVerification(
+                0xDfE5926fABA166187B29C33BC95DfDb18bbE52cd
+            );
+    }
 
+    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function auxiliaryGetIFTSOFeedVerifier()
+        internal
+        view
+        returns (IFTSOFeedVerifier)
+    {
+        return IFTSOFeedVerifier(0x206e99eC6598aC89F6Ce84bDdBd71b40BD874BF1);
+    }
 
-function getFtsoManager() internal view returns(IFtsoManager){
-return IFtsoManager(FLARE_CONTRACT_REGISTRY.getContractAddressByName("FtsoManager"));
-
-}
-
-
-function getWNat() internal view returns(IWNat){
-return IWNat(FLARE_CONTRACT_REGISTRY.getContractAddressByName("WNat"));
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIEVMTransactionVerification() internal view returns(IEVMTransactionVerification){
-return IEVMTransactionVerification(0xf37AD1278917c04fb291C75a42e61710964Cb57c);
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIAddressValidityVerification() internal view returns(IAddressValidityVerification){
-return IAddressValidityVerification(0xd94721da1dD5e222020D256fC073e8Be301ebdCB);
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIBalanceDecreasingTransactionVerification() internal view returns(IBalanceDecreasingTransactionVerification){
-return IBalanceDecreasingTransactionVerification(0xeDa84A2eeDfdA53e7c33ef5fDe7B2798B910BF4A);
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIConfirmedBlockHeightExistsVerification() internal view returns(IConfirmedBlockHeightExistsVerification){
-return IConfirmedBlockHeightExistsVerification(0x632A984d63f9Ae3C2Eb31e0dc2EeEaE1E282E0da);
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIPaymentVerification() internal view returns(IPaymentVerification){
-return IPaymentVerification(0x1ECe6dd08D19c0faf3AB8cEcB146cd5ea5b9b7d9);
-
-}
-
-
-// Returns hardcoded unofficial deployment instances of Flare core contracts
-function auxiliaryGetIReferencedPaymentNonexistenceVerification() internal view returns(IReferencedPaymentNonexistenceVerification){
-return IReferencedPaymentNonexistenceVerification(0xDfE5926fABA166187B29C33BC95DfDb18bbE52cd);
-
-}
- 
     // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 }
