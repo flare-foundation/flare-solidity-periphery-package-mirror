@@ -3,11 +3,11 @@
 This package contains a collection of smart contracts deployed on the **Flare**, Coston2 (test network for Flare), **Songbird** and Coston (test network for Songbird) networks.
 
 The intention of this package is to provide a set of **interfaces** for easier integration and development of smart contracts on Flare based networks.
-Interfaces in the most recent version of this package are the same as the ones deployed on the networks. This package exposes all public and most of the internal interfaces but **does not** expose any of the implementations. If you want to access the implementations, you can use the official [flare smart contracts repo](https://gitlab.com/flarenetwork/flare-smart-contracts).
+Interfaces in the most recent version of this package are the same as the ones deployed on the networks. This package exposes all public and most of the internal interfaces but **does not** expose any of the implementations. If you want to access the implementations, you can use the official [Flare smart contracts repo](https://github.com/flare-foundation/flare-smart-contracts-v2).
 
 The package functions similar to openzeppelin library packages and can easily be imported in `nodejs` based projects as well as directly in remix IDE.
 
-Basic familiarity with the Flare network and EVM is assumed for use. For more information, please refer to the [Flare documentation](https://docs.flare.network/). If you want a guided tutorial on EVM development and Flare focused smart contract development with this package, please refer to the [Flare developer blogpost series](https://medium.com/@j0-0sko/setting-up-the-environment-3c9f20dcac7c).
+Basic familiarity with the Flare network and EVM is assumed for use. For more information, please refer to the [Flare Developer Hub](https://dev.flare.network/). If you want a guided tutorial on EVM development and Flare focused smart contract development with this package, see the guide on [Getting Started with Flare](https://dev.flare.network/network/getting-started).
 
 ## Package structure
 

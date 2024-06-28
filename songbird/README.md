@@ -2,6 +2,6 @@
 
 This is package for smart contracts on network Songbird from branch `songbird_network_deployed_code`.
 
-[Songbird](https://docs.flare.network/tech/glossary/#songbird) is a **canary network**.
+Songbird is the **Canary Network** for [Flare Network](https://dev.flare.network).
 
-Explorer link: [https://songbird-explorer.flare.network/](https://songbird-explorer.flare.network/)
+Explorer link: [songbird.flarescan.com](https://songbird.flarescan.com)
