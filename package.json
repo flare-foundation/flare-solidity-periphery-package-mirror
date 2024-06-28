@@ -1,7 +1,7 @@
 {
   "name": "@flarenetwork/flare-periphery-contracts",
   "description": "Smart contracts for all Flare chains",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "author": "Flare Network",
   "license": "MIT",
   "keywords": [
@@ -21,6 +21,7 @@
     "examples"
   ],
   "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0"
+    "@openzeppelin/contracts": "^4.6.0",
+    "hardhat": "^2.22.5"
   }
 }
