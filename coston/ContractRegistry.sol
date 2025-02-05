@@ -16,7 +16,6 @@ import {IGovernanceVotePower} from "./IGovernanceVotePower.sol";
 import {IClaimSetupManager} from "./IClaimSetupManager.sol";
 import {IFlareAssetRegistry} from "./IFlareAssetRegistry.sol";
 import {IFlareContractRegistry} from "./IFlareContractRegistry.sol";
-import {IPollingFtso} from "./IPollingFtso.sol";
 import {ISubmission} from "./ISubmission.sol";
 import {IEntityManager} from "./IEntityManager.sol";
 import {IVoterRegistry} from "./IVoterRegistry.sol";
@@ -39,7 +38,8 @@ import {TestFtsoV2Interface} from "./TestFtsoV2Interface.sol";
 import {ProtocolsV2Interface} from "./ProtocolsV2Interface.sol";
 import {RandomNumberV2Interface} from "./RandomNumberV2Interface.sol";
 import {RewardsV2Interface} from "./RewardsV2Interface.sol";
-import {IFdcVerification} from "./IFdcVerification.sol";
+import {IFdcHub} from "./IFdcHub.sol";
+import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
 import {IEVMTransactionVerification} from "./IEVMTransactionVerification.sol";
 import {IAddressValidityVerification} from "./IAddressValidityVerification.sol";
 import {IBalanceDecreasingTransactionVerification} from "./IBalanceDecreasingTransactionVerification.sol";
@@ -220,15 +220,6 @@ library ContractRegistry {
             IFlareContractRegistry(
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("FlareContractRegistry"))
-                )
-            );
-    }
-
-    function getPollingFtso() internal view returns (IPollingFtso) {
-        return
-            IPollingFtso(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("PollingFtso"))
                 )
             );
     }
@@ -463,11 +454,24 @@ library ContractRegistry {
             );
     }
 
-    function getIFdcVerification() internal view returns (IFdcVerification) {
+    function getFdcHub() internal view returns (IFdcHub) {
         return
-            IFdcVerification(
+            IFdcHub(
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("IFdcVerification"))
+                    keccak256(abi.encode("FdcHub"))
+                )
+            );
+    }
+
+    function getFdcRequestFeeConfigurations()
+        internal
+        view
+        returns (IFdcRequestFeeConfigurations)
+    {
+        return
+            IFdcRequestFeeConfigurations(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("FdcRequestFeeConfigurations"))
                 )
             );
     }
