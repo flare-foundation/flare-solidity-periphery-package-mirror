@@ -38,14 +38,9 @@ import {TestFtsoV2Interface} from "./TestFtsoV2Interface.sol";
 import {ProtocolsV2Interface} from "./ProtocolsV2Interface.sol";
 import {RandomNumberV2Interface} from "./RandomNumberV2Interface.sol";
 import {RewardsV2Interface} from "./RewardsV2Interface.sol";
+import {IFdcVerification} from "./IFdcVerification.sol";
 import {IFdcHub} from "./IFdcHub.sol";
 import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
-import {IEVMTransactionVerification} from "./IEVMTransactionVerification.sol";
-import {IAddressValidityVerification} from "./IAddressValidityVerification.sol";
-import {IBalanceDecreasingTransactionVerification} from "./IBalanceDecreasingTransactionVerification.sol";
-import {IConfirmedBlockHeightExistsVerification} from "./IConfirmedBlockHeightExistsVerification.sol";
-import {IPaymentVerification} from "./IPaymentVerification.sol";
-import {IReferencedPaymentNonexistenceVerification} from "./IReferencedPaymentNonexistenceVerification.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -454,6 +449,15 @@ library ContractRegistry {
             );
     }
 
+    function getFdcVerification() internal view returns (IFdcVerification) {
+        return
+            IFdcVerification(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("FdcVerification"))
+                )
+            );
+    }
+
     function getFdcHub() internal view returns (IFdcHub) {
         return
             IFdcHub(
@@ -473,75 +477,6 @@ library ContractRegistry {
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("FdcRequestFeeConfigurations"))
                 )
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIEVMTransactionVerification()
-        internal
-        pure
-        returns (IEVMTransactionVerification)
-    {
-        return
-            IEVMTransactionVerification(
-                0x57a2db68fb40f6C61342FF4beF283AE185eA8E51
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIAddressValidityVerification()
-        internal
-        pure
-        returns (IAddressValidityVerification)
-    {
-        return
-            IAddressValidityVerification(
-                0x57a2db68fb40f6C61342FF4beF283AE185eA8E51
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIBalanceDecreasingTransactionVerification()
-        internal
-        pure
-        returns (IBalanceDecreasingTransactionVerification)
-    {
-        return
-            IBalanceDecreasingTransactionVerification(
-                0x57a2db68fb40f6C61342FF4beF283AE185eA8E51
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIConfirmedBlockHeightExistsVerification()
-        internal
-        pure
-        returns (IConfirmedBlockHeightExistsVerification)
-    {
-        return
-            IConfirmedBlockHeightExistsVerification(
-                0x57a2db68fb40f6C61342FF4beF283AE185eA8E51
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIPaymentVerification()
-        internal
-        pure
-        returns (IPaymentVerification)
-    {
-        return IPaymentVerification(0x57a2db68fb40f6C61342FF4beF283AE185eA8E51);
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIReferencedPaymentNonexistenceVerification()
-        internal
-        pure
-        returns (IReferencedPaymentNonexistenceVerification)
-    {
-        return
-            IReferencedPaymentNonexistenceVerification(
-                0x57a2db68fb40f6C61342FF4beF283AE185eA8E51
             );
     }
 

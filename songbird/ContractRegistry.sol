@@ -41,12 +41,6 @@ import {RewardsV2Interface} from "./RewardsV2Interface.sol";
 import {IFdcVerification} from "./IFdcVerification.sol";
 import {IFdcHub} from "./IFdcHub.sol";
 import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
-import {IEVMTransactionVerification} from "./IEVMTransactionVerification.sol";
-import {IAddressValidityVerification} from "./IAddressValidityVerification.sol";
-import {IBalanceDecreasingTransactionVerification} from "./IBalanceDecreasingTransactionVerification.sol";
-import {IConfirmedBlockHeightExistsVerification} from "./IConfirmedBlockHeightExistsVerification.sol";
-import {IPaymentVerification} from "./IPaymentVerification.sol";
-import {IReferencedPaymentNonexistenceVerification} from "./IReferencedPaymentNonexistenceVerification.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -483,75 +477,6 @@ library ContractRegistry {
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("FdcRequestFeeConfigurations"))
                 )
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIEVMTransactionVerification()
-        internal
-        pure
-        returns (IEVMTransactionVerification)
-    {
-        return
-            IEVMTransactionVerification(
-                0xd283afC5A67E2d4Bc700b5B640328Bda22450621
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIAddressValidityVerification()
-        internal
-        pure
-        returns (IAddressValidityVerification)
-    {
-        return
-            IAddressValidityVerification(
-                0xd283afC5A67E2d4Bc700b5B640328Bda22450621
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIBalanceDecreasingTransactionVerification()
-        internal
-        pure
-        returns (IBalanceDecreasingTransactionVerification)
-    {
-        return
-            IBalanceDecreasingTransactionVerification(
-                0xd283afC5A67E2d4Bc700b5B640328Bda22450621
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIConfirmedBlockHeightExistsVerification()
-        internal
-        pure
-        returns (IConfirmedBlockHeightExistsVerification)
-    {
-        return
-            IConfirmedBlockHeightExistsVerification(
-                0xd283afC5A67E2d4Bc700b5B640328Bda22450621
-            );
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIPaymentVerification()
-        internal
-        pure
-        returns (IPaymentVerification)
-    {
-        return IPaymentVerification(0xd283afC5A67E2d4Bc700b5B640328Bda22450621);
-    }
-
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIReferencedPaymentNonexistenceVerification()
-        internal
-        pure
-        returns (IReferencedPaymentNonexistenceVerification)
-    {
-        return
-            IReferencedPaymentNonexistenceVerification(
-                0xd283afC5A67E2d4Bc700b5B640328Bda22450621
             );
     }
 
