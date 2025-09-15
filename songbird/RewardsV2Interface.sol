@@ -5,11 +5,16 @@ pragma solidity >=0.7.6 <0.9;
  * Rewards V2 long term support interface.
  */
 interface RewardsV2Interface {
-
     /// Claim type enum.
-    enum ClaimType { DIRECT, FEE, WNAT, MIRROR, CCHAIN }
+    enum ClaimType {
+        DIRECT,
+        FEE,
+        WNAT,
+        MIRROR,
+        CCHAIN
+    }
 
-   /// Struct used for claiming rewards with Merkle proof.
+    /// Struct used for claiming rewards with Merkle proof.
     struct RewardClaimWithProof {
         bytes32[] merkleProof;
         RewardClaim body;
@@ -48,9 +53,7 @@ interface RewardsV2Interface {
         uint24 _rewardEpochId,
         bool _wrap,
         RewardClaimWithProof[] calldata _proofs
-    )
-        external
-        returns (uint256 _rewardAmountWei);
+    ) external returns (uint256 _rewardAmountWei);
 
     /**
      * Indicates if the contract is active - claims are enabled.
@@ -63,17 +66,17 @@ interface RewardsV2Interface {
      * @return _endEpochId The newest epoch id that allows reward claiming.
      */
     function getRewardEpochIdsWithClaimableRewards()
-        external view
-        returns (
-            uint24 _startEpochId,
-            uint24 _endEpochId
-        );
+        external
+        view
+        returns (uint24 _startEpochId, uint24 _endEpochId);
 
     /**
      * Returns the next claimable reward epoch for a reward owner.
      * @param _rewardOwner Address of the reward owner to query.
      */
-    function getNextClaimableRewardEpochId(address _rewardOwner) external view returns (uint256);
+    function getNextClaimableRewardEpochId(
+        address _rewardOwner
+    ) external view returns (uint256);
 
     /**
      * Returns the state of rewards for a given address for all unclaimed reward epochs with claimable rewards.
@@ -82,10 +85,5 @@ interface RewardsV2Interface {
      */
     function getStateOfRewards(
         address _rewardOwner
-    )
-        external view
-        returns (
-            RewardState[][] memory _rewardStates
-        );
-
+    ) external view returns (RewardState[][] memory _rewardStates);
 }

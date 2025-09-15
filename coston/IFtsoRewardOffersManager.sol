@@ -5,10 +5,9 @@ pragma solidity >=0.7.6 <0.9;
  * FtsoRewardOffersManager interface.
  */
 interface IFtsoRewardOffersManager {
-
     /**
-    * Defines a reward offer.
-    */
+     * Defines a reward offer.
+     */
     struct Offer {
         // amount (in wei) of reward in native coin
         uint120 amount;
@@ -75,11 +74,10 @@ interface IFtsoRewardOffersManager {
     function offerRewards(
         uint24 _nextRewardEpochId,
         Offer[] calldata _offers
-    )
-        external payable;
+    ) external payable;
 
     /**
      * Minimal rewards offer value (in wei).
      */
-    function minimalRewardsOfferValueWei() external view returns(uint256);
+    function minimalRewardsOfferValueWei() external view returns (uint256);
 }

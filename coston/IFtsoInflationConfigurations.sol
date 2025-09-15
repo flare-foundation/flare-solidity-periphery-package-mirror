@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-
 /**
  * FtsoInflationConfigurations interface.
  */
 interface IFtsoInflationConfigurations {
-
     /// The FTSO configuration struct.
     struct FtsoConfiguration {
         // concatenated feed ids - i.e. category + base/quote symbol - multiple of 21 (one feedId is bytes21)
@@ -27,10 +25,15 @@ interface IFtsoInflationConfigurations {
      * Returns the FTSO configuration at `_index`.
      * @param _index The index of the FTSO configuration.
      */
-    function getFtsoConfiguration(uint256 _index) external view returns(FtsoConfiguration memory);
+    function getFtsoConfiguration(
+        uint256 _index
+    ) external view returns (FtsoConfiguration memory);
 
     /**
      * Returns the FTSO configurations.
      */
-    function getFtsoConfigurations() external view returns(FtsoConfiguration[] memory);
+    function getFtsoConfigurations()
+        external
+        view
+        returns (FtsoConfiguration[] memory);
 }

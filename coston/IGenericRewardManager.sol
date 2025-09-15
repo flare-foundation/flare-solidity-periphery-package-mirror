@@ -2,22 +2,15 @@
 pragma solidity >=0.7.6 <0.9;
 
 interface IGenericRewardManager {
-
     event RewardClaimed(
         address indexed beneficiary,
         address indexed sentTo,
         uint256 amount
     );
 
-    event RewardsDistributed(
-        address[] addresses,
-        uint256[] rewards
-    );
+    event RewardsDistributed(address[] addresses, uint256[] rewards);
 
-    event ClaimExecutorsChanged(
-        address rewardOwner,
-        address[] executors
-    );
+    event ClaimExecutorsChanged(address rewardOwner, address[] executors);
 
     event AllowedClaimRecipientsChanged(
         address rewardOwner,
@@ -26,7 +19,6 @@ interface IGenericRewardManager {
 
     event RewardManagerActivated(address rewardManager);
     event RewardManagerDeactivated(address rewardManager);
-
 
     /**
      * @notice Allows the sender to claim or wrap rewards for reward owner.
@@ -41,19 +33,24 @@ interface IGenericRewardManager {
      * @param _rewardAmount         amount of rewards to claim
      * @param _wrap                 should reward be wrapped immediately
      */
-    function claim(address _rewardOwner, address payable _recipient, uint256 _rewardAmount, bool _wrap) external;
+    function claim(
+        address _rewardOwner,
+        address payable _recipient,
+        uint256 _rewardAmount,
+        bool _wrap
+    ) external;
 
     /**
      * Set the addresses of executors, who are allowed to call `claim`.
      * @param _executors The new executors. All old executors will be deleted and replaced by these.
-     */    
+     */
     function setClaimExecutors(address[] memory _executors) external;
 
     /**
      * Set the addresses of allowed recipients in the methods `claim`.
      * Apart from these, the reward owner is always an allowed recipient.
      * @param _recipients The new allowed recipients. All old recipients will be deleted and replaced by these.
-     */    
+     */
     function setAllowedClaimRecipients(address[] memory _recipients) external;
 
     /**
@@ -69,21 +66,20 @@ interface IGenericRewardManager {
      */
     function getStateOfRewards(
         address _beneficiary
-    )
-        external view 
-        returns (
-            uint256 _totalReward,
-            uint256 _claimedReward
-        );
+    ) external view returns (uint256 _totalReward, uint256 _claimedReward);
 
     /**
      * Get the addresses of executors, who are allowed to call `claim`.
-     */    
-    function claimExecutors(address _rewardOwner) external view returns (address[] memory);
-    
+     */
+    function claimExecutors(
+        address _rewardOwner
+    ) external view returns (address[] memory);
+
     /**
      * Get the addresses of allowed recipients in the methods `claim`.
      * Apart from these, the reward owner is always an allowed recipient.
-     */    
-    function allowedClaimRecipients(address _rewardOwner) external view returns (address[] memory);
+     */
+    function allowedClaimRecipients(
+        address _rewardOwner
+    ) external view returns (address[] memory);
 }

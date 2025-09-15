@@ -23,7 +23,10 @@ interface IGovernanceVotePower {
      * @param _blockNumber The block number at which to fetch the vote power.
      * @return Governance vote power of `_who` at `_blockNumber`.
      */
-    function votePowerOfAt(address _who, uint256 _blockNumber) external view returns(uint256);
+    function votePowerOfAt(
+        address _who,
+        uint256 _blockNumber
+    ) external view returns (uint256);
 
     /**
      * Gets the governance vote power of an address at the latest block, including
@@ -39,7 +42,10 @@ interface IGovernanceVotePower {
      * @param _blockNumber The block number at which to fetch the address.
      * @return Address where `_who` was delegating its governance vote power at block `_blockNumber`.
      */
-    function getDelegateOfAt(address _who, uint256 _blockNumber) external view returns (address);
+    function getDelegateOfAt(
+        address _who,
+        uint256 _blockNumber
+    ) external view returns (address);
 
     /**
      * Gets the address an account is delegating its governance vote power to, at the latest block number.

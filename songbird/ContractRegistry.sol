@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.25;
 
 import {IFlareContractRegistry} from "./IFlareContractRegistry.sol";
-
-// Auto generated imports
 // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
 import {IPriceSubmitter} from "./IPriceSubmitter.sol";
 import {IGovernanceSettings} from "./IGovernanceSettings.sol";
@@ -42,6 +40,7 @@ import {IFdcVerification} from "./IFdcVerification.sol";
 import {IFdcHub} from "./IFdcHub.sol";
 import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
 import {IAssetManagerController} from "./IAssetManagerController.sol";
+import {IAssetManager} from "./IAssetManager.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -490,6 +489,15 @@ library ContractRegistry {
             IAssetManagerController(
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("AssetManagerController"))
+                )
+            );
+    }
+
+    function getAssetManagerFXRP() internal view returns (IAssetManager) {
+        return
+            IAssetManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("AssetManagerFXRP"))
                 )
             );
     }

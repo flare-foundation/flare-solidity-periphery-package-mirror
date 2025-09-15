@@ -5,12 +5,10 @@ pragma abicoder v2;
 import "./IPChainVotePower.sol";
 import "./IPChainStakeMirrorVerifier.sol";
 
-
 /**
  * Interface for the `PChainStakeMirror` contract.
  */
 interface IPChainStakeMirror is IPChainVotePower {
-
     /**
      * Event emitted when max updates per block is set.
      * @param maxUpdatesPerBlock new number of max updated per block
@@ -69,8 +67,7 @@ interface IPChainStakeMirror is IPChainVotePower {
     function mirrorStake(
         IPChainStakeMirrorVerifier.PChainStake calldata _stakeData,
         bytes32[] calldata _merkleProof
-    )
-        external;
+    ) external;
 
     /**
      * Method for checking if active stake (stake start time <= block.timestamp < stake end time) was already mirrored.
@@ -78,7 +75,10 @@ interface IPChainStakeMirror is IPChainVotePower {
      * @param _inputAddress P-chain address that opened stake.
      * @return True if stake is active and mirrored.
      */
-    function isActiveStakeMirrored(bytes32 _txId, bytes20 _inputAddress) external view returns(bool);
+    function isActiveStakeMirrored(
+        bytes32 _txId,
+        bytes20 _inputAddress
+    ) external view returns (bool);
 
     /**
      * Total amount of tokens at current block.
@@ -91,7 +91,7 @@ interface IPChainStakeMirror is IPChainVotePower {
      * @param _blockNumber The block number when the totalSupply is queried.
      * @return The total amount of tokens at `_blockNumber`.
      **/
-    function totalSupplyAt(uint _blockNumber) external view returns(uint256);
+    function totalSupplyAt(uint _blockNumber) external view returns (uint256);
 
     /**
      * Queries the token balance of `_owner` at current block.
@@ -106,5 +106,8 @@ interface IPChainStakeMirror is IPChainVotePower {
      * @param _blockNumber The block number when the balance is queried.
      * @return The balance at `_blockNumber`.
      **/
-    function balanceOfAt(address _owner, uint _blockNumber) external view returns (uint256);
+    function balanceOfAt(
+        address _owner,
+        uint _blockNumber
+    ) external view returns (uint256);
 }

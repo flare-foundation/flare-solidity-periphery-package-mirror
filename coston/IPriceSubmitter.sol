@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import "./genesis/interface/IFtsoGenesis.sol";
-import "./genesis/interface/IFtsoRegistryGenesis.sol";
+import "./genesis/interfaces/IFtsoGenesis.sol";
+import "./genesis/interfaces/IFtsoRegistryGenesis.sol";
 
 interface IPriceSubmitter {
     /**
@@ -37,7 +37,7 @@ interface IPriceSubmitter {
         uint256[] randoms,
         uint256 timestamp
     );
-    
+
     /**
      * @notice Submits price hashes for current epoch
      * @param _epochId              Target epoch id to which hashes are submitted
@@ -71,8 +71,10 @@ interface IPriceSubmitter {
      * Returns bitmap of all ftso's for which `_voter` is allowed to submit prices/hashes.
      * If voter is allowed to vote for ftso at index (see *_FTSO_INDEX), the corrsponding
      * bit in the result will be 1.
-     */    
-    function voterWhitelistBitmap(address _voter) external view returns (uint256);
+     */
+    function voterWhitelistBitmap(
+        address _voter
+    ) external view returns (uint256);
 
     function getVoterWhitelister() external view returns (address);
     function getFtsoRegistry() external view returns (IFtsoRegistryGenesis);

@@ -7,7 +7,6 @@ import "./IRandomProvider.sol";
  * Submission interface.
  */
 interface ISubmission is IRandomProvider {
-
     /// Event emitted when a new voting round is initiated.
     event NewVotingRoundInitiated();
 

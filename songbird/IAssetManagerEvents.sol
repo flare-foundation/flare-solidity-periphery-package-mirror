@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-
 /**
  * All asset manager events.
  */
@@ -18,9 +17,7 @@ interface IAssetManagerEvents {
         uint256 mintingPoolCollateralRatioBIPS;
         uint256 buyFAssetByAgentFactorBIPS;
         uint256 poolExitCollateralRatioBIPS;
-        uint256 poolTopupCollateralRatioBIPS;
-        uint256 poolTopupTokenPriceFactorBIPS;
-        uint256 handshakeType;
+        uint256 redemptionPoolFeeShareBIPS;
     }
 
     /**
@@ -29,7 +26,8 @@ interface IAssetManagerEvents {
     event AgentVaultCreated(
         address indexed owner,
         address indexed agentVault,
-        AgentVaultCreationData creationData);
+        AgentVaultCreationData creationData
+    );
 
     /**
      * Agent has announced destroy (close) of agent vault and will be able to
@@ -37,13 +35,13 @@ interface IAssetManagerEvents {
      */
     event AgentDestroyAnnounced(
         address indexed agentVault,
-        uint256 destroyAllowedAt);
+        uint256 destroyAllowedAt
+    );
 
     /**
      * Agent has destroyed (closed) the agent vault.
      */
-    event AgentDestroyed(
-        address indexed agentVault);
+    event AgentDestroyed(address indexed agentVault);
 
     /**
      * Agent has announced a withdrawal of collateral and will be able to
@@ -53,7 +51,8 @@ interface IAssetManagerEvents {
     event VaultCollateralWithdrawalAnnounced(
         address indexed agentVault,
         uint256 amountWei,
-        uint256 withdrawalAllowedAt);
+        uint256 withdrawalAllowedAt
+    );
 
     /**
      * Agent has announced a withdrawal of collateral and will be able to
@@ -63,7 +62,8 @@ interface IAssetManagerEvents {
     event PoolTokenRedemptionAnnounced(
         address indexed agentVault,
         uint256 amountWei,
-        uint256 withdrawalAllowedAt);
+        uint256 withdrawalAllowedAt
+    );
 
     /**
      * Agent was added to the list of available agents and can accept collateral reservation requests.
@@ -73,7 +73,8 @@ interface IAssetManagerEvents {
         uint256 feeBIPS,
         uint256 mintingVaultCollateralRatioBIPS,
         uint256 mintingPoolCollateralRatioBIPS,
-        uint256 freeCollateralLots);
+        uint256 freeCollateralLots
+    );
 
     /**
      * Agent exited from available agents list.
@@ -81,13 +82,13 @@ interface IAssetManagerEvents {
      */
     event AvailableAgentExitAnnounced(
         address indexed agentVault,
-        uint256 exitAllowedAt);
+        uint256 exitAllowedAt
+    );
 
     /**
      * Agent exited from available agents list.
      */
-    event AvailableAgentExited(
-        address indexed agentVault);
+    event AvailableAgentExited(address indexed agentVault);
 
     /**
      * Agent has initiated setting change (fee or some agent collateral ratio change).
@@ -97,7 +98,8 @@ interface IAssetManagerEvents {
         address indexed agentVault,
         string name,
         uint256 value,
-        uint256 validAt);
+        uint256 validAt
+    );
 
     /**
      * Agent has executed setting change (fee or some agent collateral ratio change).
@@ -105,7 +107,8 @@ interface IAssetManagerEvents {
     event AgentSettingChanged(
         address indexed agentVault,
         string name,
-        uint256 value);
+        uint256 value
+    );
 
     /**
      * Agent or agent's collateral pool has changed token contract.
@@ -113,19 +116,8 @@ interface IAssetManagerEvents {
     event AgentCollateralTypeChanged(
         address indexed agentVault,
         uint8 collateralClass,
-        address token);
-
-    /**
-     * Minter reserved collateral, paid the reservation fee. Agent's collateral was reserved.
-     * Agent needs to approve or reject the reservation according to the minter's identity.
-     */
-    event HandshakeRequired(
-        address indexed agentVault,
-        address indexed minter,
-        uint256 indexed collateralReservationId,
-        string[] minterUnderlyingAddresses,
-        uint256 valueUBA,
-        uint256 feeUBA);
+        address token
+    );
 
     /**
      * Minter reserved collateral, paid the reservation fee, and is expected to pay the underlying funds.
@@ -143,25 +135,8 @@ interface IAssetManagerEvents {
         string paymentAddress,
         bytes32 paymentReference,
         address executor,
-        uint256 executorFeeNatWei);
-
-    /**
-     * Agent rejected the collateral reservation request because of the minter's identity.
-     * Reserved collateral was released.
-     */
-    event CollateralReservationRejected(
-        address indexed agentVault,
-        address indexed minter,
-        uint256 indexed collateralReservationId);
-
-    /**
-     * Minter cancelled the collateral reservation request because of the agent's inactivity.
-     * Reserved collateral was released.
-     */
-    event CollateralReservationCancelled(
-        address indexed agentVault,
-        address indexed minter,
-        uint256 indexed collateralReservationId);
+        uint256 executorFeeNatWei
+    );
 
     /**
      * Minter paid underlying funds in time and received the fassets.
@@ -172,7 +147,8 @@ interface IAssetManagerEvents {
         uint256 indexed collateralReservationId,
         uint256 mintedAmountUBA,
         uint256 agentFeeUBA,
-        uint256 poolFeeUBA);
+        uint256 poolFeeUBA
+    );
 
     /**
      * Minter failed to pay underlying funds in time. Collateral reservation fee was paid to the agent.
@@ -182,7 +158,8 @@ interface IAssetManagerEvents {
         address indexed agentVault,
         address indexed minter,
         uint256 indexed collateralReservationId,
-        uint256 reservedAmountUBA);
+        uint256 reservedAmountUBA
+    );
 
     /**
      * Both minter and agent failed to present any proof within attestation time window, so
@@ -192,7 +169,8 @@ interface IAssetManagerEvents {
         address indexed agentVault,
         address indexed minter,
         uint256 indexed collateralReservationId,
-        uint256 reservedAmountUBA);
+        uint256 reservedAmountUBA
+    );
 
     /**
      * Agent performed self minting, either by executing selfMint with underlying deposit or
@@ -204,7 +182,8 @@ interface IAssetManagerEvents {
         bool mintFromFreeUnderlying,
         uint256 mintedAmountUBA,
         uint256 depositedAmountUBA,
-        uint256 poolFeeUBA);
+        uint256 poolFeeUBA
+    );
 
     /**
      * Redeemer started the redemption process and provided fassets.
@@ -225,28 +204,8 @@ interface IAssetManagerEvents {
         uint256 lastUnderlyingTimestamp,
         bytes32 paymentReference,
         address executor,
-        uint256 executorFeeNatWei);
-
-    /**
-     * Agent rejected the redemption request because of the redeemer's identity.
-     */
-    event RedemptionRequestRejected(
-        address indexed agentVault,
-        address indexed redeemer,
-        uint64 indexed requestId,
-        string paymentAddress,
-        uint256 valueUBA);
-
-    /**
-     * Agent's rejected redemption request was taken over by another agent.
-     */
-    event RedemptionRequestTakenOver(
-        address indexed agentVault,
-        address indexed redeemer,
-        uint64 indexed requestId,
-        uint256 valueTakenOverUBA,
-        address newAgentVault,
-        uint64 newRequestId);
+        uint256 executorFeeNatWei
+    );
 
     /**
      * Agent rejected the redemption payment because the redeemer's address is invalid.
@@ -254,8 +213,9 @@ interface IAssetManagerEvents {
     event RedemptionRejected(
         address indexed agentVault,
         address indexed redeemer,
-        uint64 indexed requestId,
-        uint256 redemptionAmountUBA);
+        uint256 indexed requestId,
+        uint256 redemptionAmountUBA
+    );
 
     /**
      * In case there were not enough tickets or more than allowed number would have to be redeemed,
@@ -264,7 +224,8 @@ interface IAssetManagerEvents {
      */
     event RedemptionRequestIncomplete(
         address indexed redeemer,
-        uint256 remainingLots);
+        uint256 remainingLots
+    );
 
     /**
      * Agent provided proof of redemption payment.
@@ -273,10 +234,11 @@ interface IAssetManagerEvents {
     event RedemptionPerformed(
         address indexed agentVault,
         address indexed redeemer,
-        uint64 indexed requestId,
+        uint256 indexed requestId,
         bytes32 transactionHash,
         uint256 redemptionAmountUBA,
-        int256 spentUnderlyingUBA);
+        int256 spentUnderlyingUBA
+    );
 
     /**
      * The time for redemption payment is over and payment proof was not provided.
@@ -288,10 +250,11 @@ interface IAssetManagerEvents {
     event RedemptionDefault(
         address indexed agentVault,
         address indexed redeemer,
-        uint64 indexed requestId,
+        uint256 indexed requestId,
         uint256 redemptionAmountUBA,
         uint256 redeemedVaultCollateralWei,
-        uint256 redeemedPoolCollateralWei);
+        uint256 redeemedPoolCollateralWei
+    );
 
     /**
      * Agent provided the proof that redemption payment was attempted, but failed due to
@@ -302,10 +265,11 @@ interface IAssetManagerEvents {
     event RedemptionPaymentBlocked(
         address indexed agentVault,
         address indexed redeemer,
-        uint64 indexed requestId,
+        uint256 indexed requestId,
         bytes32 transactionHash,
         uint256 redemptionAmountUBA,
-        int256 spentUnderlyingUBA);
+        int256 spentUnderlyingUBA
+    );
 
     /**
      * Agent provided the proof that redemption payment was attempted, but failed due to
@@ -314,10 +278,11 @@ interface IAssetManagerEvents {
     event RedemptionPaymentFailed(
         address indexed agentVault,
         address indexed redeemer,
-        uint64 indexed requestId,
+        uint256 indexed requestId,
         bytes32 transactionHash,
         int256 spentUnderlyingUBA,
-        string failureReason);
+        string failureReason
+    );
 
     /**
      * At the end of a successful redemption, part of the redemption fee is re-minted as FAssets
@@ -325,8 +290,9 @@ interface IAssetManagerEvents {
      */
     event RedemptionPoolFeeMinted(
         address indexed agentVault,
-        uint64 indexed requestId,
-        uint256 poolFeeUBA);
+        uint256 indexed requestId,
+        uint256 poolFeeUBA
+    );
 
     /**
      * Due to self-close exit, some of the agent's backed fAssets were redeemed,
@@ -336,14 +302,13 @@ interface IAssetManagerEvents {
         address indexed agentVault,
         address indexed redeemer,
         uint256 redemptionAmountUBA,
-        uint256 paidVaultCollateralWei);
+        uint256 paidVaultCollateralWei
+    );
 
     /**
      * Agent self-closed valueUBA of backing fassets.
      */
-    event SelfClose(
-        address indexed agentVault,
-        uint256 valueUBA);
+    event SelfClose(address indexed agentVault, uint256 valueUBA);
 
     /**
      * Redemption ticket with given value was created (when minting was executed).
@@ -351,7 +316,8 @@ interface IAssetManagerEvents {
     event RedemptionTicketCreated(
         address indexed agentVault,
         uint256 indexed redemptionTicketId,
-        uint256 ticketValueUBA);
+        uint256 ticketValueUBA
+    );
 
     /**
      * Redemption ticket value was changed (partially redeemed).
@@ -360,14 +326,16 @@ interface IAssetManagerEvents {
     event RedemptionTicketUpdated(
         address indexed agentVault,
         uint256 indexed redemptionTicketId,
-        uint256 ticketValueUBA);
+        uint256 ticketValueUBA
+    );
 
     /**
      * Redemption ticket was deleted.
      */
     event RedemptionTicketDeleted(
         address indexed agentVault,
-        uint256 indexed redemptionTicketId);
+        uint256 indexed redemptionTicketId
+    );
 
     /**
      * Due to lot size change, some dust was created for this agent during
@@ -375,34 +343,20 @@ interface IAssetManagerEvents {
      * but it can be self-closed or liquidated and if it accumulates to more than 1 lot,
      * it can be converted to a new redemption ticket.
      */
-    event DustChanged(
-        address indexed agentVault,
-        uint256 dustUBA);
-
-    /**
-     * Agent entered CCB (collateral call band) due to being on the border of unhealthy.
-     * Agent has limited time to topup the collateral, otherwise liquidation starts.
-     */
-    event AgentInCCB(
-        address indexed agentVault,
-        uint256 timestamp);
+    event DustChanged(address indexed agentVault, uint256 dustUBA);
 
     /**
      * Agent entered liquidation state due to unhealthy position.
      * The liquidation ends when the agent is again healthy or the agent's position is fully liquidated.
      */
-    event LiquidationStarted(
-        address indexed agentVault,
-        uint256 timestamp);
+    event LiquidationStarted(address indexed agentVault, uint256 timestamp);
 
     /**
      * Agent entered liquidation state due to illegal payment.
      * Full liquidation will always liquidate the whole agent's position and
      * the agent can never use the same vault and underlying address for minting again.
      */
-    event FullLiquidationStarted(
-        address indexed agentVault,
-        uint256 timestamp);
+    event FullLiquidationStarted(address indexed agentVault, uint256 timestamp);
 
     /**
      * Some of the agent's position was liquidated, by burning liquidator's fassets.
@@ -415,13 +369,13 @@ interface IAssetManagerEvents {
         address indexed liquidator,
         uint256 valueUBA,
         uint256 paidVaultCollateralWei,
-        uint256 paidPoolCollateralWei);
+        uint256 paidPoolCollateralWei
+    );
 
     /**
      * Agent exited liquidation state as agent's position was healthy again and not in full liquidation.
      */
-    event LiquidationEnded(
-        address indexed agentVault);
+    event LiquidationEnded(address indexed agentVault);
 
     /**
      * Part of the balance in the agent's underlying address is "free balance" that the agent can withdraw.
@@ -434,8 +388,9 @@ interface IAssetManagerEvents {
      */
     event UnderlyingWithdrawalAnnounced(
         address indexed agentVault,
-        uint64 indexed announcementId,
-        bytes32 paymentReference);
+        uint256 indexed announcementId,
+        bytes32 paymentReference
+    );
 
     /**
      * After announcing legal underlying withdrawal and creating transaction,
@@ -445,9 +400,10 @@ interface IAssetManagerEvents {
      */
     event UnderlyingWithdrawalConfirmed(
         address indexed agentVault,
-        uint64 indexed announcementId,
+        uint256 indexed announcementId,
         int256 spentUBA,
-        bytes32 transactionHash);
+        bytes32 transactionHash
+    );
 
     /**
      * After announcing legal underlying withdrawal agent can cancel ongoing withdrawal.
@@ -456,7 +412,8 @@ interface IAssetManagerEvents {
      */
     event UnderlyingWithdrawalCancelled(
         address indexed agentVault,
-        uint64 indexed announcementId);
+        uint256 indexed announcementId
+    );
 
     /**
      * Emitted when the agent tops up the underlying address balance.
@@ -464,14 +421,16 @@ interface IAssetManagerEvents {
     event UnderlyingBalanceToppedUp(
         address indexed agentVault,
         bytes32 transactionHash,
-        uint256 depositedUBA);
+        uint256 depositedUBA
+    );
 
     /**
      * Emitted whenever the tracked underlying balance changes.
      */
     event UnderlyingBalanceChanged(
         address indexed agentVault,
-        int256 underlyingBalanceUBA);
+        int256 underlyingBalanceUBA
+    );
 
     /**
      * An unexpected transaction from the agent's underlying address was proved.
@@ -480,7 +439,8 @@ interface IAssetManagerEvents {
      */
     event IllegalPaymentConfirmed(
         address indexed agentVault,
-        bytes32 transactionHash);
+        bytes32 transactionHash
+    );
 
     /**
      * Two transactions with the same payment reference, both from the agent's underlying address, were proved.
@@ -490,7 +450,8 @@ interface IAssetManagerEvents {
     event DuplicatePaymentConfirmed(
         address indexed agentVault,
         bytes32 transactionHash1,
-        bytes32 transactionHash2);
+        bytes32 transactionHash2
+    );
 
     /**
      * Agent's underlying balance became lower than required for backing f-assets (either through payment or via
@@ -500,28 +461,23 @@ interface IAssetManagerEvents {
     event UnderlyingBalanceTooLow(
         address indexed agentVault,
         int256 balance,
-        uint256 requiredBalance);
+        uint256 requiredBalance
+    );
 
     /**
      * A setting has changed.
      */
-    event SettingChanged(
-        string name,
-        uint256 value);
+    event SettingChanged(string name, uint256 value);
 
     /**
      * A setting has changed.
      */
-    event SettingArrayChanged(
-        string name,
-        uint256[] value);
+    event SettingArrayChanged(string name, uint256[] value);
 
     /**
      * A contract in the settings has changed.
      */
-    event ContractChanged(
-        string name,
-        address value);
+    event ContractChanged(string name, address value);
 
     /**
      * Current underlying block number or timestamp has been updated.
@@ -529,7 +485,8 @@ interface IAssetManagerEvents {
     event CurrentUnderlyingBlockUpdated(
         uint256 underlyingBlockNumber,
         uint256 underlyingBlockTimestamp,
-        uint256 updatedAt);
+        uint256 updatedAt
+    );
 
     /**
      * New collateral token has been added.
@@ -542,18 +499,18 @@ interface IAssetManagerEvents {
         string assetFtsoSymbol,
         string tokenFtsoSymbol,
         uint256 minCollateralRatioBIPS,
-        uint256 ccbMinCollateralRatioBIPS,
-        uint256 safetyMinCollateralRatioBIPS);
+        uint256 safetyMinCollateralRatioBIPS
+    );
 
     /**
-     * System defined collateral ratios for the token have changed (minimal, CCB and safety collateral ratio).
+     * System defined collateral ratios for the token have changed (minimal and safety collateral ratio).
      */
     event CollateralRatiosChanged(
         uint8 collateralClass,
         address collateralToken,
         uint256 minCollateralRatioBIPS,
-        uint256 ccbMinCollateralRatioBIPS,
-        uint256 safetyMinCollateralRatioBIPS);
+        uint256 safetyMinCollateralRatioBIPS
+    );
 
     /**
      * Collateral token has been marked as deprecated. After the timestamp `validUntil` passes, it will be
@@ -562,13 +519,13 @@ interface IAssetManagerEvents {
     event CollateralTypeDeprecated(
         uint8 collateralClass,
         address collateralToken,
-        uint256 validUntil);
+        uint256 validUntil
+    );
 
     /**
      * Emergency pause was triggered.
      */
-    event EmergencyPauseTriggered(
-        uint256 pausedUntil);
+    event EmergencyPauseTriggered(uint256 pausedUntil);
 
     /**
      * Emergency pause was canceled.
@@ -578,8 +535,7 @@ interface IAssetManagerEvents {
     /**
      * Emergency pause transfers was triggered.
      */
-    event EmergencyPauseTransfersTriggered(
-        uint256 pausedUntil);
+    event EmergencyPauseTransfersTriggered(uint256 pausedUntil);
 
     /**
      * Emergency pause transfers was canceled.

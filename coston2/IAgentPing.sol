@@ -11,7 +11,8 @@ interface IAgentPing {
     event AgentPing(
         address indexed agentVault,
         address indexed sender,
-        uint256 query);
+        uint256 query
+    );
 
     /**
      * Response to agent bot liveness check.
@@ -24,17 +25,15 @@ interface IAgentPing {
         address indexed agentVault,
         address indexed owner,
         uint256 query,
-        string response);
+        string response
+    );
 
     /**
      * Used for liveness checks, simply emits AgentPing event.
      * @param _agentVault the agent vault whose owner bot to ping
      * @param _query off-chain defined id of the query
      */
-    function agentPing(
-        address _agentVault,
-        uint256 _query
-    ) external;
+    function agentPing(address _agentVault, uint256 _query) external;
 
     /**
      * Used for liveness checks, the bot's response to AgentPing event.

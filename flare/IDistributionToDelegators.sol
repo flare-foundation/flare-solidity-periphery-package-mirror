@@ -4,11 +4,18 @@ pragma abicoder v2;
 
 interface IDistributionToDelegators {
     // Events
-    event UseGoodRandomSet(bool useGoodRandom, uint256 maxWaitForGoodRandomSeconds);
+    event UseGoodRandomSet(
+        bool useGoodRandom,
+        uint256 maxWaitForGoodRandomSeconds
+    );
     event EntitlementStart(uint256 entitlementStartTs);
-    event AccountClaimed(address indexed whoClaimed, address indexed sentTo, uint256 month, uint256 amountWei);
+    event AccountClaimed(
+        address indexed whoClaimed,
+        address indexed sentTo,
+        uint256 month,
+        uint256 amountWei
+    );
     event AccountOptOut(address indexed theAccount, bool confirmed);
-
 
     // Methods
     /**
@@ -25,8 +32,12 @@ interface IDistributionToDelegators {
      * @param _wrap                 should reward be wrapped immediately
      * @return _rewardAmount        amount of total claimed rewards
      */
-    function claim(address _rewardOwner, address _recipient, uint256 _month, bool _wrap)
-        external returns(uint256 _rewardAmount);
+    function claim(
+        address _rewardOwner,
+        address _recipient,
+        uint256 _month,
+        bool _wrap
+    ) external returns (uint256 _rewardAmount);
 
     /**
      * @notice Allows batch claiming for the list of '_rewardOwners' up to given '_month'.
@@ -38,25 +49,32 @@ interface IDistributionToDelegators {
      * @param _rewardOwners         list of reward owners to claim for
      * @param _month                last month to claim for
      */
-    function autoClaim(address[] calldata _rewardOwners, uint256 _month) external;
-    
+    function autoClaim(
+        address[] calldata _rewardOwners,
+        uint256 _month
+    ) external;
+
     /**
      * @notice Method to opt-out of receiving airdrop rewards
      */
     function optOutOfAirdrop() external;
-    
+
     /**
      * @notice Returns the next claimable month for '_rewardOwner'.
      * @param _rewardOwner          address of the reward owner
      */
-    function nextClaimableMonth(address _rewardOwner) external view returns (uint256);
+    function nextClaimableMonth(
+        address _rewardOwner
+    ) external view returns (uint256);
 
     /**
      * @notice get claimable amount of wei for requesting account for specified month
      * @param _month month of interest
      * @return _amountWei amount of wei available for this account and provided month
      */
-    function getClaimableAmount(uint256 _month) external view returns(uint256 _amountWei);
+    function getClaimableAmount(
+        uint256 _month
+    ) external view returns (uint256 _amountWei);
 
     /**
      * @notice get claimable amount of wei for account for specified month
@@ -64,7 +82,10 @@ interface IDistributionToDelegators {
      * @param _month month of interest
      * @return _amountWei amount of wei available for provided account and month
      */
-    function getClaimableAmountOf(address _account, uint256 _month) external view returns(uint256 _amountWei);
+    function getClaimableAmountOf(
+        address _account,
+        uint256 _month
+    ) external view returns (uint256 _amountWei);
 
     /**
      * @notice Returns the current month
@@ -76,12 +97,18 @@ interface IDistributionToDelegators {
      * @notice Returns the month that will expire next
      * @return _monthToExpireNext Month that will expire next, 36 when last month expired
      */
-    function getMonthToExpireNext() external view returns (uint256 _monthToExpireNext);
+    function getMonthToExpireNext()
+        external
+        view
+        returns (uint256 _monthToExpireNext);
 
     /**
      * @notice Returns claimable months - reverts if none
      * @return _startMonth first claimable month
      * @return _endMonth last claimable month
      */
-    function getClaimableMonths() external view returns(uint256 _startMonth, uint256 _endMonth);
+    function getClaimableMonths()
+        external
+        view
+        returns (uint256 _startMonth, uint256 _endMonth);
 }

@@ -5,7 +5,6 @@ import "./IRNat.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 interface IRNatAccount {
-
     event FundsWithdrawn(uint256 amount, bool wrap);
     event LockedAmountBurned(uint256 amount);
     event ExternalTokenTransferred(IERC20 token, uint256 amount);

@@ -1,34 +1,32 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-
 interface IPollingManagementGroup {
-
     /**
      * Struct holding the information about proposal properties.
      */
     struct Proposal {
-        uint256 rewardEpochId;              // reward epoch id in which the proposal was created
-        string description;                 // description of the proposal
-        address proposer;                   // address of the proposer
-        bool canceled;                      // flag indicating if proposal has been canceled
-        uint256 voteStartTime;              // start time of voting window (in seconds from epoch)
-        uint256 voteEndTime;                // end time of voting window (in seconds from epoch)
-        uint256 thresholdConditionBIPS;     // percentage in BIPS of the total vote power required for proposal quorum
-        uint256 majorityConditionBIPS;      // percentage in BIPS of the proper relation between FOR and AGAINST votes
-        mapping(address => bool) isEligible;// flag if an address is eligible to cast a vote in a proposal
-        uint256 noOfEligibleMembers;        // number of addresses that can vote in the proposal
-        bool accept;                        // if true proposal is of the acceptance type
-                                            // otherwise it is of the rejection type
+        uint256 rewardEpochId; // reward epoch id in which the proposal was created
+        string description; // description of the proposal
+        address proposer; // address of the proposer
+        bool canceled; // flag indicating if proposal has been canceled
+        uint256 voteStartTime; // start time of voting window (in seconds from epoch)
+        uint256 voteEndTime; // end time of voting window (in seconds from epoch)
+        uint256 thresholdConditionBIPS; // percentage in BIPS of the total vote power required for proposal quorum
+        uint256 majorityConditionBIPS; // percentage in BIPS of the proper relation between FOR and AGAINST votes
+        mapping(address => bool) isEligible; // flag if an address is eligible to cast a vote in a proposal
+        uint256 noOfEligibleMembers; // number of addresses that can vote in the proposal
+        bool accept; // if true proposal is of the acceptance type
+        // otherwise it is of the rejection type
     }
 
     /**
      * Struct holding the information about proposal voting.
      */
     struct ProposalVoting {
-        uint256 againstVotePower;           // accumulated vote power against the proposal
-        uint256 forVotePower;               // accumulated vote power for the proposal
-        mapping(address => bool) hasVoted;  // flag if a voter has cast a vote
+        uint256 againstVotePower; // accumulated vote power against the proposal
+        uint256 forVotePower; // accumulated vote power for the proposal
+        mapping(address => bool) hasVoted; // flag if a voter has cast a vote
     }
 
     /**
@@ -109,7 +107,6 @@ interface IPollingManagementGroup {
      */
     event ManagementGroupMemberRemoved(address removedMember);
 
-
     /**
      * Event emitted when maintainer is set.
      */
@@ -177,7 +174,10 @@ interface IPollingManagementGroup {
      * @param _voter Address of the voter.
      * @return True if the voter has cast a vote on the proposal, and false otherwise.
      */
-    function hasVoted(uint256 _proposalId, address _voter) external view returns (bool);
+    function hasVoted(
+        uint256 _proposalId,
+        address _voter
+    ) external view returns (bool);
 
     /**
      * Returns information about the specified proposal.
@@ -194,7 +194,8 @@ interface IPollingManagementGroup {
     function getProposalInfo(
         uint256 _proposalId
     )
-        external view
+        external
+        view
         returns (
             string memory _description,
             address _proposer,
@@ -211,16 +212,19 @@ interface IPollingManagementGroup {
      * @param _proposalId Id of the proposal.
      * @return _description Description of the proposal.
      */
-    function getProposalDescription(uint256 _proposalId) external view
-        returns (string memory _description);
+    function getProposalDescription(
+        uint256 _proposalId
+    ) external view returns (string memory _description);
 
     /**
      * Returns id and description of the last created proposal.
      * @return _proposalId Id of the last proposal.
      * @return _description Description of the last proposal.
      */
-    function getLastProposal() external view
-        returns ( uint256 _proposalId, string memory _description);
+    function getLastProposal()
+        external
+        view
+        returns (uint256 _proposalId, string memory _description);
 
     /**
      * Returns number of votes for and against the specified proposal.
@@ -230,12 +234,7 @@ interface IPollingManagementGroup {
      */
     function getProposalVotes(
         uint256 _proposalId
-    )
-        external view
-        returns (
-            uint256 _for,
-            uint256 _against
-        );
+    ) external view returns (uint256 _for, uint256 _against);
 
     /**
      * Returns whether an account can create proposals.
@@ -252,7 +251,10 @@ interface IPollingManagementGroup {
      * @param _proposalId Id of the queried proposal.
      * @return True if account is eligible to vote, false otherwise.
      */
-    function canVote(address _account, uint256 _proposalId) external view returns (bool);
+    function canVote(
+        address _account,
+        uint256 _proposalId
+    ) external view returns (bool);
 
     /**
      * Returns whether a voter is member of the management group.

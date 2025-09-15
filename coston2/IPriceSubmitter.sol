@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import "./genesis/interface/IFtsoGenesis.sol";
-import "./genesis/interface/IFtsoRegistryGenesis.sol";
-import "./genesis/interface/IFtsoManagerGenesis.sol";
+import "./genesis/interfaces/IFtsoGenesis.sol";
+import "./genesis/interfaces/IFtsoRegistryGenesis.sol";
+import "./genesis/interfaces/IFtsoManagerGenesis.sol";
 
 interface IPriceSubmitter {
     /**
@@ -36,17 +36,14 @@ interface IPriceSubmitter {
         uint256 random,
         uint256 timestamp
     );
-    
+
     /**
      * @notice Submits hash for current epoch
      * @param _epochId              Target epoch id to which hash is submitted
      * @param _hash                 Hash of ftso indices, prices, random number and voter address
      * @notice Emits HashSubmitted event
      */
-    function submitHash(
-        uint256 _epochId,
-        bytes32 _hash
-    ) external;
+    function submitHash(uint256 _epochId, bytes32 _hash) external;
 
     /**
      * @notice Reveals submitted prices during epoch reveal period
@@ -68,8 +65,10 @@ interface IPriceSubmitter {
      * Returns bitmap of all ftso's for which `_voter` is allowed to submit prices/hashes.
      * If voter is allowed to vote for ftso at index (see *_FTSO_INDEX), the corrsponding
      * bit in the result will be 1.
-     */    
-    function voterWhitelistBitmap(address _voter) external view returns (uint256);
+     */
+    function voterWhitelistBitmap(
+        address _voter
+    ) external view returns (uint256);
 
     function getVoterWhitelister() external view returns (address);
     function getFtsoRegistry() external view returns (IFtsoRegistryGenesis);
@@ -79,7 +78,7 @@ interface IPriceSubmitter {
      * @notice Returns current random number
      */
     function getCurrentRandom() external view returns (uint256);
-    
+
     /**
      * @notice Returns random number of the specified epoch
      * @param _epochId              Id of the epoch
