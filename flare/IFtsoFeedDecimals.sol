@@ -5,9 +5,12 @@ pragma solidity >=0.7.6 <0.9;
  * FtsoFeedDecimals interface.
  */
 interface IFtsoFeedDecimals {
-
     /// Event emitted when a feed decimals value is changed.
-    event DecimalsChanged(bytes21 indexed feedId, int8 decimals, uint24 rewardEpochId);
+    event DecimalsChanged(
+        bytes21 indexed feedId,
+        int8 decimals,
+        uint24 rewardEpochId
+    );
 
     /// The offset in reward epochs for the decimals value to become effective.
     function decimalsUpdateOffset() external view returns (uint24);
@@ -30,9 +33,7 @@ interface IFtsoFeedDecimals {
     function getDecimals(
         bytes21 _feedId,
         uint256 _rewardEpochId
-    )
-        external view
-        returns (int8);
+    ) external view returns (int8);
 
     /**
      * Returns the scheduled decimals changes of `_feedId`.
@@ -44,7 +45,8 @@ interface IFtsoFeedDecimals {
     function getScheduledDecimalsChanges(
         bytes21 _feedId
     )
-        external view
+        external
+        view
         returns (
             int8[] memory _decimals,
             uint256[] memory _validFromEpochId,
@@ -58,9 +60,7 @@ interface IFtsoFeedDecimals {
      */
     function getCurrentDecimalsBulk(
         bytes memory _feedIds
-    )
-        external view
-        returns (bytes memory _decimals);
+    ) external view returns (bytes memory _decimals);
 
     /**
      * Returns decimals setting for `_feedIds` at `_rewardEpochId`.
@@ -72,7 +72,5 @@ interface IFtsoFeedDecimals {
     function getDecimalsBulk(
         bytes memory _feedIds,
         uint256 _rewardEpochId
-    )
-        external view
-        returns (bytes memory _decimals);
+    ) external view returns (bytes memory _decimals);
 }

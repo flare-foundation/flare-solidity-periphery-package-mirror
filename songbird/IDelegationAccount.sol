@@ -5,7 +5,6 @@ import "./IClaimSetupManager.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 interface IDelegationAccount {
-
     event DelegateFtso(address to, uint256 bips);
     event RevokeFtso(address to, uint256 blockNumber);
     event UndelegateAllFtso();

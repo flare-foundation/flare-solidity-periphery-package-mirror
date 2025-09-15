@@ -5,7 +5,6 @@ pragma solidity >=0.7.6 <0.9;
  * FastUpdatesConfiguration interface.
  */
 interface IFastUpdatesConfiguration {
-
     /**
      * The feed configuration struct.
      */
@@ -19,9 +18,19 @@ interface IFastUpdatesConfiguration {
     }
 
     /// Event emitted when a feed is added.
-    event FeedAdded(bytes21 indexed feedId, uint32 rewardBandValue, uint24 inflationShare, uint256 index);
+    event FeedAdded(
+        bytes21 indexed feedId,
+        uint32 rewardBandValue,
+        uint24 inflationShare,
+        uint256 index
+    );
     /// Event emitted when a feed is updated.
-    event FeedUpdated(bytes21 indexed feedId, uint32 rewardBandValue, uint24 inflationShare, uint256 index);
+    event FeedUpdated(
+        bytes21 indexed feedId,
+        uint32 rewardBandValue,
+        uint24 inflationShare,
+        uint256 index
+    );
     /// Event emitted when a feed is removed.
     event FeedRemoved(bytes21 indexed feedId, uint256 index);
 
@@ -30,7 +39,9 @@ interface IFastUpdatesConfiguration {
      * @param _feedId The feed id.
      * @return _index The index of the feed.
      */
-    function getFeedIndex(bytes21 _feedId) external view returns (uint256 _index);
+    function getFeedIndex(
+        bytes21 _feedId
+    ) external view returns (uint256 _index);
 
     /**
      * Returns the feed id at a given index. Removed (unused) feed index will return bytes21(0).
@@ -52,7 +63,10 @@ interface IFastUpdatesConfiguration {
     /**
      * Returns the feed configurations, including removed ones.
      */
-    function getFeedConfigurations() external view returns (FeedConfiguration[] memory);
+    function getFeedConfigurations()
+        external
+        view
+        returns (FeedConfiguration[] memory);
 
     /**
      * Returns the unused indices - indices of removed feeds.

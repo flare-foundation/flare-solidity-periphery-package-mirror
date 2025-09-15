@@ -3,12 +3,10 @@ pragma solidity >=0.7.6 <0.9;
 
 import "./ICChainVotePower.sol";
 
-
 /**
  * Interface for the `CChainStake` contract.
  */
 interface ICChainStake is ICChainVotePower {
-
     /**
      * Total amount of tokens at current block.
      * @return The current total amount of tokens.
@@ -20,7 +18,9 @@ interface ICChainStake is ICChainVotePower {
      * @param _blockNumber The block number when the totalSupply is queried.
      * @return The total amount of tokens at `_blockNumber`.
      **/
-    function totalSupplyAt(uint256 _blockNumber) external view returns(uint256);
+    function totalSupplyAt(
+        uint256 _blockNumber
+    ) external view returns (uint256);
 
     /**
      * Queries the token balance of `_owner` at current block.
@@ -35,5 +35,8 @@ interface ICChainStake is ICChainVotePower {
      * @param _blockNumber The block number when the balance is queried.
      * @return The balance at `_blockNumber`.
      **/
-    function balanceOfAt(address _owner, uint256 _blockNumber) external view returns (uint256);
+    function balanceOfAt(
+        address _owner,
+        uint256 _blockNumber
+    ) external view returns (uint256);
 }

@@ -12,7 +12,8 @@ interface RandomNumberV2Interface {
      * @return _randomTimestamp The timestamp of the random number.
      */
     function getRandomNumber()
-        external view
+        external
+        view
         returns (
             uint256 _randomNumber,
             bool _isSecureRandom,
@@ -28,8 +29,11 @@ interface RandomNumberV2Interface {
      * @return _isSecureRandom The flag indicating if the random number is secure.
      * @return _randomTimestamp The timestamp of the random number.
      */
-    function getRandomNumberHistorical(uint256 _votingRoundId)
-        external view
+    function getRandomNumberHistorical(
+        uint256 _votingRoundId
+    )
+        external
+        view
         returns (
             uint256 _randomNumber,
             bool _isSecureRandom,

@@ -6,20 +6,46 @@ import "./IWNat.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 interface IRNat is IERC20Metadata {
-
     event RNatAccountCreated(address owner, IRNatAccount rNatAccount);
-    event ProjectAdded(uint256 indexed id, string name, address distributor, bool currentMonthDistributionEnabled);
-    event ProjectUpdated(uint256 indexed id, string name, address distributor, bool currentMonthDistributionEnabled);
-    event RewardsAssigned(uint256 indexed projectId, uint256 indexed month, uint128 amount);
-    event RewardsUnassigned(uint256 indexed projectId, uint256 indexed month, uint128 amount);
+    event ProjectAdded(
+        uint256 indexed id,
+        string name,
+        address distributor,
+        bool currentMonthDistributionEnabled
+    );
+    event ProjectUpdated(
+        uint256 indexed id,
+        string name,
+        address distributor,
+        bool currentMonthDistributionEnabled
+    );
+    event RewardsAssigned(
+        uint256 indexed projectId,
+        uint256 indexed month,
+        uint128 amount
+    );
+    event RewardsUnassigned(
+        uint256 indexed projectId,
+        uint256 indexed month,
+        uint128 amount
+    );
     event RewardsDistributed(
         uint256 indexed projectId,
         uint256 indexed month,
         address[] recipients,
         uint128[] amounts
     );
-    event RewardsClaimed(uint256 indexed projectId, uint256 indexed month, address indexed owner, uint128 amount);
-    event UnclaimedRewardsUnassigned(uint256 indexed projectId, uint256 indexed month, uint128 amount);
+    event RewardsClaimed(
+        uint256 indexed projectId,
+        uint256 indexed month,
+        address indexed owner,
+        uint128 amount
+    );
+    event UnclaimedRewardsUnassigned(
+        uint256 indexed projectId,
+        uint256 indexed month,
+        uint128 amount
+    );
     event UnassignedRewardsWithdrawn(address recipient, uint128 amount);
     event DistributionPermissionUpdated(uint256[] projectIds, bool disabled);
     event ClaimingPermissionUpdated(uint256[] projectIds, bool disabled);
@@ -38,8 +64,7 @@ interface IRNat is IERC20Metadata {
         uint256 _month,
         address[] calldata _recipients,
         uint128[] calldata _amountsWei
-    )
-        external;
+    ) external;
 
     /**
      * Claim rewards for a list of projects up to the given month.
@@ -50,11 +75,7 @@ interface IRNat is IERC20Metadata {
     function claimRewards(
         uint256[] calldata _projectIds,
         uint256 _month
-    )
-        external
-        returns (
-            uint128 _claimedRewardsWei
-        );
+    ) external returns (uint128 _claimedRewardsWei);
 
     /**
      * Sets the addresses of executors and adds the owner as an executor.
@@ -99,7 +120,9 @@ interface IRNat is IERC20Metadata {
      * @param _owner Account to query.
      * @return Address of its RNat account.
      */
-    function getRNatAccount(address _owner) external view returns (IRNatAccount);
+    function getRNatAccount(
+        address _owner
+    ) external view returns (IRNatAccount);
 
     /**
      * Returns the timestamp of the start of the first month.
@@ -109,7 +132,7 @@ interface IRNat is IERC20Metadata {
     /**
      * Returns the `WNat` contract.
      */
-    function wNat() external view returns(IWNat);
+    function wNat() external view returns (IWNat);
 
     /**
      * Gets the current month.
@@ -128,7 +151,10 @@ interface IRNat is IERC20Metadata {
      * @return _names The names of the projects.
      * @return _claimingDisabled Whether claiming is disabled for each project.
      */
-    function getProjectsBasicInfo() external view returns (string[] memory _names, bool[] memory _claimingDisabled);
+    function getProjectsBasicInfo()
+        external
+        view
+        returns (string[] memory _names, bool[] memory _claimingDisabled);
 
     /**
      * Gets the information of a project.
@@ -144,8 +170,11 @@ interface IRNat is IERC20Metadata {
      * @return _totalUnassignedUnclaimedRewards The total amount of unassigned unclaimed rewards (in wei).
      * @return _monthsWithRewards The months with rewards.
      */
-    function getProjectInfo(uint256 _projectId)
-        external view
+    function getProjectInfo(
+        uint256 _projectId
+    )
+        external
+        view
         returns (
             string memory _name,
             address _distributor,
@@ -168,8 +197,12 @@ interface IRNat is IERC20Metadata {
      * @return _claimedRewards The amount of rewards claimed from the project for the month (in wei).
      * @return _unassignedUnclaimedRewards The amount of unassigned unclaimed rewards for the month (in wei).
      */
-    function getProjectRewardsInfo(uint256 _projectId, uint256 _month)
-        external view
+    function getProjectRewardsInfo(
+        uint256 _projectId,
+        uint256 _month
+    )
+        external
+        view
         returns (
             uint128 _assignedRewards,
             uint128 _distributedRewards,
@@ -186,8 +219,13 @@ interface IRNat is IERC20Metadata {
      * @return _claimedRewards The amount of rewards claimed by the owner for the month (in wei).
      * @return _claimable Whether the rewards are claimable by the owner.
      */
-    function getOwnerRewardsInfo(uint256 _projectId, uint256 _month, address _owner)
-        external view
+    function getOwnerRewardsInfo(
+        uint256 _projectId,
+        uint256 _month,
+        address _owner
+    )
+        external
+        view
         returns (
             uint128 _assignedRewards,
             uint128 _claimedRewards,
@@ -200,7 +238,10 @@ interface IRNat is IERC20Metadata {
      * @param _owner The address of the owner.
      * @return The amount of rewards claimable by the owner (in wei).
      */
-    function getClaimableRewards(uint256 _projectId, address _owner) external view returns (uint128);
+    function getClaimableRewards(
+        uint256 _projectId,
+        address _owner
+    ) external view returns (uint128);
 
     /**
      * Gets owner's balances of `WNat`, `RNat` and locked tokens.
@@ -212,7 +253,8 @@ interface IRNat is IERC20Metadata {
     function getBalancesOf(
         address _owner
     )
-        external view
+        external
+        view
         returns (
             uint256 _wNatBalance,
             uint256 _rNatBalance,
@@ -228,7 +270,8 @@ interface IRNat is IERC20Metadata {
      * @return _totalWithdrawnAssignableRewards The total amount of withdrawn once assignable rewards (in wei).
      */
     function getRewardsInfo()
-        external view
+        external
+        view
         returns (
             uint256 _totalAssignableRewards,
             uint256 _totalAssignedRewards,

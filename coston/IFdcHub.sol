@@ -4,12 +4,10 @@ pragma solidity >=0.7.6 <0.9;
 import "./IFdcInflationConfigurations.sol";
 import "./IFdcRequestFeeConfigurations.sol";
 
-
 /**
  * FdcHub interface.
  */
-interface IFdcHub  {
-
+interface IFdcHub {
     // Event emitted when an attestation request is made.
     event AttestationRequest(bytes data, uint256 fee);
 
@@ -40,10 +38,16 @@ interface IFdcHub  {
     /**
      * The FDC inflation configurations contract.
      */
-    function fdcInflationConfigurations() external view returns(IFdcInflationConfigurations);
+    function fdcInflationConfigurations()
+        external
+        view
+        returns (IFdcInflationConfigurations);
 
     /**
      * The FDC request fee configurations contract.
      */
-    function fdcRequestFeeConfigurations() external view returns (IFdcRequestFeeConfigurations);
+    function fdcRequestFeeConfigurations()
+        external
+        view
+        returns (IFdcRequestFeeConfigurations);
 }

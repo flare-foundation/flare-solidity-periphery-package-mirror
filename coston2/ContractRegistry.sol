@@ -1,28 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.25;
 
 import {IFlareContractRegistry} from "./IFlareContractRegistry.sol";
-
-// Auto generated imports
 // AUTO GENERATED - DO NOT EDIT BELOW THIS LINE
 import {IPriceSubmitter} from "./IPriceSubmitter.sol";
 import {IGovernanceSettings} from "./IGovernanceSettings.sol";
 import {IFtsoRewardManager} from "./IFtsoRewardManager.sol";
 import {IFtsoRegistry} from "./IFtsoRegistry.sol";
 import {IVoterWhitelister} from "./IVoterWhitelister.sol";
-import {IDistributionToDelegators} from "./IDistributionToDelegators.sol";
 import {IFtsoManager} from "./IFtsoManager.sol";
 import {IWNat} from "./IWNat.sol";
 import {IGovernanceVotePower} from "./IGovernanceVotePower.sol";
 import {IClaimSetupManager} from "./IClaimSetupManager.sol";
-import {IGenericRewardManager} from "./IGenericRewardManager.sol";
 import {IFlareAssetRegistry} from "./IFlareAssetRegistry.sol";
-import {IValidatorRegistry} from "./IValidatorRegistry.sol";
 import {IFlareContractRegistry} from "./IFlareContractRegistry.sol";
-import {IAddressBinder} from "./IAddressBinder.sol";
-import {IPChainStakeMirror} from "./IPChainStakeMirror.sol";
-import {IPChainStakeMirrorVerifier} from "./IPChainStakeMirrorVerifier.sol";
-import {IPChainStakeMirrorMultiSigVoting} from "./IPChainStakeMirrorMultiSigVoting.sol";
 import {ISubmission} from "./ISubmission.sol";
 import {IEntityManager} from "./IEntityManager.sol";
 import {IVoterRegistry} from "./IVoterRegistry.sol";
@@ -39,7 +30,6 @@ import {IFtsoFeedIdConverter} from "./IFtsoFeedIdConverter.sol";
 import {IFastUpdateIncentiveManager} from "./IFastUpdateIncentiveManager.sol";
 import {IFastUpdater} from "./IFastUpdater.sol";
 import {IFastUpdatesConfiguration} from "./IFastUpdatesConfiguration.sol";
-import {IRNat} from "./IRNat.sol";
 import {IFeeCalculator} from "./IFeeCalculator.sol";
 import {FtsoV2Interface} from "./FtsoV2Interface.sol";
 import {TestFtsoV2Interface} from "./TestFtsoV2Interface.sol";
@@ -50,8 +40,9 @@ import {IFdcVerification} from "./IFdcVerification.sol";
 import {IFdcHub} from "./IFdcHub.sol";
 import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
 import {IAssetManagerController} from "./IAssetManagerController.sol";
+import {IAssetManager} from "./IAssetManager.sol";
 import {IJsonApiVerification} from "./IJsonApiVerification.sol";
-import {IWeb2JsonVerification} from "./IWeb2JsonVerification.sol";
+import {IGenericRewardManager} from "./IGenericRewardManager.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
 // Library is intended to be used inline, so the strings are all memory allocated (instead of calldata)
@@ -164,19 +155,6 @@ library ContractRegistry {
             );
     }
 
-    function getDistributionToDelegators()
-        internal
-        view
-        returns (IDistributionToDelegators)
-    {
-        return
-            IDistributionToDelegators(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("DistributionToDelegators"))
-                )
-            );
-    }
-
     function getFtsoManager() internal view returns (IFtsoManager) {
         return
             IFtsoManager(
@@ -217,19 +195,6 @@ library ContractRegistry {
             );
     }
 
-    function getValidatorRewardManager()
-        internal
-        view
-        returns (IGenericRewardManager)
-    {
-        return
-            IGenericRewardManager(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("ValidatorRewardManager"))
-                )
-            );
-    }
-
     function getFlareAssetRegistry()
         internal
         view
@@ -243,15 +208,6 @@ library ContractRegistry {
             );
     }
 
-    function getValidatorRegistry() internal view returns (IValidatorRegistry) {
-        return
-            IValidatorRegistry(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("ValidatorRegistry"))
-                )
-            );
-    }
-
     function getFlareContractRegistry()
         internal
         view
@@ -261,50 +217,6 @@ library ContractRegistry {
             IFlareContractRegistry(
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("FlareContractRegistry"))
-                )
-            );
-    }
-
-    function getAddressBinder() internal view returns (IAddressBinder) {
-        return
-            IAddressBinder(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("AddressBinder"))
-                )
-            );
-    }
-
-    function getPChainStakeMirror() internal view returns (IPChainStakeMirror) {
-        return
-            IPChainStakeMirror(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("PChainStakeMirror"))
-                )
-            );
-    }
-
-    function getPChainStakeMirrorVerifier()
-        internal
-        view
-        returns (IPChainStakeMirrorVerifier)
-    {
-        return
-            IPChainStakeMirrorVerifier(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("PChainStakeMirrorVerifier"))
-                )
-            );
-    }
-
-    function getPChainStakeMirrorMultiSigVoting()
-        internal
-        view
-        returns (IPChainStakeMirrorMultiSigVoting)
-    {
-        return
-            IPChainStakeMirrorMultiSigVoting(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("PChainStakeMirrorMultiSigVoting"))
                 )
             );
     }
@@ -481,15 +393,6 @@ library ContractRegistry {
             );
     }
 
-    function getRNat() internal view returns (IRNat) {
-        return
-            IRNat(
-                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
-                    keccak256(abi.encode("RNat"))
-                )
-            );
-    }
-
     function getFeeCalculator() internal view returns (IFeeCalculator) {
         return
             IFeeCalculator(
@@ -592,7 +495,15 @@ library ContractRegistry {
             );
     }
 
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
+    function getAssetManagerFXRP() internal view returns (IAssetManager) {
+        return
+            IAssetManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("AssetManagerFXRP"))
+                )
+            );
+    }
+
     function auxiliaryGetIJsonApiVerification()
         internal
         pure
@@ -601,14 +512,17 @@ library ContractRegistry {
         return IJsonApiVerification(0x07ad8508C9173DC845817472Ca0484035AbFA3c8);
     }
 
-    // Returns hardcoded unofficial deployment instances of Flare core contracts
-    function auxiliaryGetIWeb2JsonVerification()
+    function getValidatorRewardManager()
         internal
-        pure
-        returns (IWeb2JsonVerification)
+        view
+        returns (IGenericRewardManager)
     {
         return
-            IWeb2JsonVerification(0x906507E0B64bcD494Db73bd0459d1C667e14B933);
+            IGenericRewardManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("ValidatorRewardManager"))
+                )
+            );
     }
 
     // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE

@@ -19,23 +19,38 @@ interface IFtso {
 
     // events
     event PriceHashSubmitted(
-        address indexed submitter, uint256 indexed epochId, bytes32 hash, uint256 timestamp
+        address indexed submitter,
+        uint256 indexed epochId,
+        bytes32 hash,
+        uint256 timestamp
     );
 
     event PriceRevealed(
-        address indexed voter, uint256 indexed epochId, uint256 price, uint256 random, uint256 timestamp,
-        uint256 votePowerNat, uint256 votePowerAsset
+        address indexed voter,
+        uint256 indexed epochId,
+        uint256 price,
+        uint256 random,
+        uint256 timestamp,
+        uint256 votePowerNat,
+        uint256 votePowerAsset
     );
 
     event PriceFinalized(
-        uint256 indexed epochId, uint256 price, bool rewardedFtso,
-        uint256 lowIQRRewardPrice, uint256 highIQRRewardPrice,
-        uint256 lowElasticBandRewardPrice, uint256 highElasticBandRewardPrice, 
-        PriceFinalizationType finalizationType, uint256 timestamp
+        uint256 indexed epochId,
+        uint256 price,
+        bool rewardedFtso,
+        uint256 lowIQRRewardPrice,
+        uint256 highIQRRewardPrice,
+        uint256 lowElasticBandRewardPrice,
+        uint256 highElasticBandRewardPrice,
+        PriceFinalizationType finalizationType,
+        uint256 timestamp
     );
 
     event PriceEpochInitializedOnFtso(
-        uint256 indexed epochId, uint256 endTime, uint256 timestamp
+        uint256 indexed epochId,
+        uint256 endTime,
+        uint256 timestamp
     );
 
     event LowTurnout(
@@ -65,7 +80,7 @@ interface IFtso {
      * @param _timestamp            Timestamp as seconds from unix epoch
      */
     function getEpochId(uint256 _timestamp) external view returns (uint256);
-    
+
     /**
      * @notice Returns random number of the specified epoch
      * @param _epochId              Id of the epoch
@@ -88,13 +103,16 @@ interface IFtso {
      * @return _fallbackMode            Current epoch in fallback mode - only votes from trusted addresses will be used
      * @dev half-closed intervals - end time not included
      */
-    function getPriceEpochData() external view returns (
-        uint256 _epochId,
-        uint256 _epochSubmitEndTime,
-        uint256 _epochRevealEndTime,
-        uint256 _votePowerBlock,
-        bool _fallbackMode
-    );
+    function getPriceEpochData()
+        external
+        view
+        returns (
+            uint256 _epochId,
+            uint256 _epochSubmitEndTime,
+            uint256 _epochRevealEndTime,
+            uint256 _votePowerBlock,
+            bool _fallbackMode
+        );
 
     /**
      * @notice Returns current epoch data
@@ -102,26 +120,35 @@ interface IFtso {
      * @return _submitPeriodSeconds         Submit period in seconds
      * @return _revealPeriodSeconds         Reveal period in seconds
      */
-    function getPriceEpochConfiguration() external view returns (
-        uint256 _firstEpochStartTs,
-        uint256 _submitPeriodSeconds,
-        uint256 _revealPeriodSeconds
-    );
-    
+    function getPriceEpochConfiguration()
+        external
+        view
+        returns (
+            uint256 _firstEpochStartTs,
+            uint256 _submitPeriodSeconds,
+            uint256 _revealPeriodSeconds
+        );
+
     /**
      * @notice Returns asset price submitted by voter in specific epoch
      * @param _epochId              Id of the epoch
      * @param _voter                Address of the voter
      * @return Price in USD multiplied by ASSET_PRICE_USD_DECIMALS
      */
-    function getEpochPriceForVoter(uint256 _epochId, address _voter) external view returns (uint256);
+    function getEpochPriceForVoter(
+        uint256 _epochId,
+        address _voter
+    ) external view returns (uint256);
 
     /**
      * @notice Returns current asset price
      * @return _price               Price in USD multiplied by ASSET_PRICE_USD_DECIMALS
      * @return _timestamp           Time when price was updated for the last time
      */
-    function getCurrentPrice() external view returns (uint256 _price, uint256 _timestamp);
+    function getCurrentPrice()
+        external
+        view
+        returns (uint256 _price, uint256 _timestamp);
 
     /**
      * @notice Returns current asset price and number of decimals
@@ -129,18 +156,24 @@ interface IFtso {
      * @return _timestamp               Time when price was updated for the last time
      * @return _assetPriceUsdDecimals   Number of decimals used for USD price
      */
-    function getCurrentPriceWithDecimals() external view returns (
-        uint256 _price,
-        uint256 _timestamp,
-        uint256 _assetPriceUsdDecimals
-    );
-    
+    function getCurrentPriceWithDecimals()
+        external
+        view
+        returns (
+            uint256 _price,
+            uint256 _timestamp,
+            uint256 _assetPriceUsdDecimals
+        );
+
     /**
      * @notice Returns current asset price calculated from trusted providers
      * @return _price               Price in USD multiplied by ASSET_PRICE_USD_DECIMALS
      * @return _timestamp           Time when price was updated for the last time
      */
-    function getCurrentPriceFromTrustedProviders() external view returns (uint256 _price, uint256 _timestamp);
+    function getCurrentPriceFromTrustedProviders()
+        external
+        view
+        returns (uint256 _price, uint256 _timestamp);
 
     /**
      * @notice Returns current asset price calculated from trusted providers and number of decimals
@@ -148,11 +181,14 @@ interface IFtso {
      * @return _timestamp               Time when price was updated for the last time
      * @return _assetPriceUsdDecimals   Number of decimals used for USD price
      */
-    function getCurrentPriceWithDecimalsFromTrustedProviders() external view returns (
-        uint256 _price,
-        uint256 _timestamp,
-        uint256 _assetPriceUsdDecimals
-    );
+    function getCurrentPriceWithDecimalsFromTrustedProviders()
+        external
+        view
+        returns (
+            uint256 _price,
+            uint256 _timestamp,
+            uint256 _assetPriceUsdDecimals
+        );
 
     /**
      * @notice Returns current asset price details
@@ -162,13 +198,16 @@ interface IFtso {
      * @return _lastPriceEpochFinalizationTimestamp     Time when last price epoch was finalized
      * @return _lastPriceEpochFinalizationType          Finalization type of last finalized price epoch
      */
-    function getCurrentPriceDetails() external view returns (
-        uint256 _price,
-        uint256 _priceTimestamp,
-        PriceFinalizationType _priceFinalizationType,
-        uint256 _lastPriceEpochFinalizationTimestamp,
-        PriceFinalizationType _lastPriceEpochFinalizationType
-    );
+    function getCurrentPriceDetails()
+        external
+        view
+        returns (
+            uint256 _price,
+            uint256 _priceTimestamp,
+            PriceFinalizationType _priceFinalizationType,
+            uint256 _lastPriceEpochFinalizationTimestamp,
+            PriceFinalizationType _lastPriceEpochFinalizationType
+        );
 
     /**
      * @notice Returns current random number

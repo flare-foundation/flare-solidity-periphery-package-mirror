@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-
-import { SortitionCredential } from "./ISortition.sol";
+import {SortitionCredential} from "./ISortition.sol";
 
 /**
  * Fast updater interface.
  */
 interface IFastUpdater {
-
     /// Signature structure
     struct Signature {
         uint8 v;
@@ -36,14 +34,18 @@ interface IFastUpdater {
         uint256 indexed index,
         bytes21 indexed id,
         uint256 value,
-        int8 decimals);
+        int8 decimals
+    );
 
     /// Event emitted when a feed is removed.
-    event FastUpdateFeedRemoved(
-        uint256 indexed index);
+    event FastUpdateFeedRemoved(uint256 indexed index);
 
     /// Event emitted at the start of a new voting epoch - current feeds' values and decimals.
-    event FastUpdateFeeds(uint256 indexed votingEpochId, uint256[] feeds, int8[] decimals);
+    event FastUpdateFeeds(
+        uint256 indexed votingEpochId,
+        uint256[] feeds,
+        int8[] decimals
+    );
 
     /**
      * The entry point for providers to submit an update transaction.
@@ -64,7 +66,8 @@ interface IFastUpdater {
      * @return _timestamp The timestamp of the last update.
      */
     function fetchAllCurrentFeeds()
-        external payable
+        external
+        payable
         returns (
             bytes21[] memory _feedIds,
             uint256[] memory _feeds,
@@ -88,7 +91,8 @@ interface IFastUpdater {
     function fetchCurrentFeeds(
         uint256[] calldata _indices
     )
-        external payable
+        external
+        payable
         returns (
             uint256[] memory _feeds,
             int8[] memory _decimals,
@@ -108,7 +112,9 @@ interface IFastUpdater {
      * @return _cutoff The upper endpoint of the acceptable range of "scores" that providers generate for sortition.
      * A score below the cutoff indicates eligibility to submit updates in the present sortition round.
      */
-    function blockScoreCutoff(uint256 _blockNum) external view returns (uint256 _cutoff);
+    function blockScoreCutoff(
+        uint256 _blockNum
+    ) external view returns (uint256 _cutoff);
 
     /**
      * Informational getter concerning a provider's likelihood of being chosen by sortition.
@@ -118,7 +124,9 @@ interface IFastUpdater {
      * delegation weight for the FTSO, but rescaled against a fixed number of "virtual providers", indicating how many
      * potential updates a single provider may make in a sortition round.
      */
-    function currentSortitionWeight(address _signingPolicyAddress) external view returns (uint256 _weight);
+    function currentSortitionWeight(
+        address _signingPolicyAddress
+    ) external view returns (uint256 _weight);
 
     /**
      * The submission window is a number of blocks forming a "grace period" after a round of sortition starts,
@@ -138,12 +146,16 @@ interface IFastUpdater {
      * @return _noOfUpdates The number of updates submitted in each block for the last `_historySize` blocks.
      * The array is ordered from the current block to the oldest block.
      */
-    function numberOfUpdates(uint256 _historySize) external view returns (uint256[] memory _noOfUpdates);
+    function numberOfUpdates(
+        uint256 _historySize
+    ) external view returns (uint256[] memory _noOfUpdates);
 
     /**
      * The number of updates submitted in a block - available only for the last `MAX_BLOCKS_HISTORY` blocks.
      * @param _blockNumber The block number for which the number of updates should be returned.
      * @return _noOfUpdates The number of updates submitted in the specified block.
      */
-    function numberOfUpdatesInBlock(uint256 _blockNumber) external view returns (uint256 _noOfUpdates);
+    function numberOfUpdatesInBlock(
+        uint256 _blockNumber
+    ) external view returns (uint256 _noOfUpdates);
 }

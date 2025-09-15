@@ -6,7 +6,6 @@ pragma abicoder v2;
  * Interface for the `PChainStakeMirrorMultiSigVoting` contract.
  */
 interface IPChainStakeMirrorMultiSigVoting {
-
     /**
      * Structure describing votes.
      */
@@ -38,7 +37,10 @@ interface IPChainStakeMirrorMultiSigVoting {
      * @param epochId Epoch id.
      * @param merkleRoot Voted Merkle root for that epoch id.
      */
-    event PChainStakeMirrorVotingFinalized(uint256 indexed epochId, bytes32 merkleRoot);
+    event PChainStakeMirrorVotingFinalized(
+        uint256 indexed epochId,
+        bytes32 merkleRoot
+    );
 
     /**
      * Event emitted when vote for specific epoch is submitted.
@@ -46,7 +48,11 @@ interface IPChainStakeMirrorMultiSigVoting {
      * @param voter Voter address.
      * @param merkleRoot Merkle root voter voted for in given epoch.
      */
-    event PChainStakeMirrorVoteSubmitted(uint256 epochId, address voter, bytes32 merkleRoot);
+    event PChainStakeMirrorVoteSubmitted(
+        uint256 epochId,
+        address voter,
+        bytes32 merkleRoot
+    );
 
     /**
      * Event emitted when validator uptime vote for specific reward epoch is submitted.
@@ -78,18 +84,20 @@ interface IPChainStakeMirrorMultiSigVoting {
      * @param _nodeIds List of validators (node ids) with high enough uptime in given reward epoch.
      * **NOTE**: Reward epochs are aligned with FTSO reward epochs.
      */
-    function submitValidatorUptimeVote(uint256 _rewardEpochId, bytes20[] calldata _nodeIds) external;
+    function submitValidatorUptimeVote(
+        uint256 _rewardEpochId,
+        bytes20[] calldata _nodeIds
+    ) external;
 
     /**
      * Returns epochs configuration data.
      * @return _firstEpochStartTs First epoch start timestamp
      * @return _epochDurationSeconds Epoch duration in seconds
      */
-    function getEpochConfiguration() external view
-        returns (
-            uint256 _firstEpochStartTs,
-            uint256 _epochDurationSeconds
-        );
+    function getEpochConfiguration()
+        external
+        view
+        returns (uint256 _firstEpochStartTs, uint256 _epochDurationSeconds);
 
     /**
      * Returns id of the epoch at the specified timestamp.
@@ -102,14 +110,16 @@ interface IPChainStakeMirrorMultiSigVoting {
      * @param _epochId Epoch id of the interest.
      * @return Merkle root for finalized epoch id and `bytes32(0)` otherwise.
      */
-    function getMerkleRoot(uint256 _epochId) external view returns(bytes32);
+    function getMerkleRoot(uint256 _epochId) external view returns (bytes32);
 
-     /**
+    /**
      * Returns all votes for the given `_epochId` util epoch is finalized. Reverts later.
      * @param _epochId Epoch id of the interest.
      * @return Votes for for the given `_epochId`.
      */
-    function getVotes(uint256 _epochId) external view returns(PChainVotes[] memory);
+    function getVotes(
+        uint256 _epochId
+    ) external view returns (PChainVotes[] memory);
 
     /**
      * Checks if `_voter` should vote for the given `_epochId`.
@@ -118,19 +128,22 @@ interface IPChainStakeMirrorMultiSigVoting {
      * @return False if voter is not eligible to vote, epoch already finalized or voter already voted. True otherwise.
      * **NOTE**: The method will return true even if epoch has not ended yet - `submitVote` will revert in that case.
      */
-    function shouldVote(uint256 _epochId, address _voter) external view returns(bool);
+    function shouldVote(
+        uint256 _epochId,
+        address _voter
+    ) external view returns (bool);
 
     /**
      * Returns the list of all voters.
      * @return List of all voters.
      */
-    function getVoters() external view returns(address[] memory);
+    function getVoters() external view returns (address[] memory);
 
-     /**
+    /**
      * Returns the voting threshold.
      * @return Voting threshold.
      */
-    function getVotingThreshold() external view returns(uint256);
+    function getVotingThreshold() external view returns (uint256);
 
     /**
      * Returns current epoch id.

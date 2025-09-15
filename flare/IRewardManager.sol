@@ -7,13 +7,12 @@ import "./RewardsV2Interface.sol";
  * RewardManager interface.
  */
 interface IRewardManager is RewardsV2Interface {
-
     /// Struct used for storing unclaimed reward data.
     struct UnclaimedRewardState {
-        bool initialised;           // Information if already initialised
-                                    // amount and weight might be 0 if all users already claimed
-        uint120 amount;             // Total unclaimed amount.
-        uint128 weight;             // Total unclaimed weight.
+        bool initialised; // Information if already initialised
+        // amount and weight might be 0 if all users already claimed
+        uint120 amount; // Total unclaimed amount.
+        uint128 weight; // Total unclaimed weight.
     }
 
     /**
@@ -61,14 +60,15 @@ interface IRewardManager is RewardsV2Interface {
         address[] calldata _rewardOwners,
         uint24 _rewardEpochId,
         RewardClaimWithProof[] calldata _proofs
-    )
-        external;
+    ) external;
 
     /**
      * Initialises weight based claims.
      * @param _proofs Array of reward claims with merkle proofs.
      */
-    function initialiseWeightBasedClaims(RewardClaimWithProof[] calldata _proofs) external;
+    function initialiseWeightBasedClaims(
+        RewardClaimWithProof[] calldata _proofs
+    ) external;
 
     /**
      * Returns the reward manager id.
@@ -79,7 +79,9 @@ interface IRewardManager is RewardsV2Interface {
      * Returns the number of weight based claims that have been initialised.
      * @param _rewardEpochId Reward epoch id.
      */
-    function noOfInitialisedWeightBasedClaims(uint256 _rewardEpochId) external view returns (uint256);
+    function noOfInitialisedWeightBasedClaims(
+        uint256 _rewardEpochId
+    ) external view returns (uint256);
 
     /**
      * Get the current cleanup block number.
@@ -96,11 +98,7 @@ interface IRewardManager is RewardsV2Interface {
     function getStateOfRewardsAt(
         address _rewardOwner,
         uint24 _rewardEpochId
-    )
-        external view
-        returns (
-            RewardState[] memory _rewardStates
-        );
+    ) external view returns (RewardState[] memory _rewardStates);
 
     /**
      * Gets the unclaimed reward state for a beneficiary, reward epoch id and claim type.
@@ -113,11 +111,7 @@ interface IRewardManager is RewardsV2Interface {
         address _beneficiary,
         uint24 _rewardEpochId,
         ClaimType _claimType
-    )
-        external view
-        returns (
-            UnclaimedRewardState memory _state
-        );
+    ) external view returns (UnclaimedRewardState memory _state);
 
     /**
      * Returns totals.
@@ -127,7 +121,8 @@ interface IRewardManager is RewardsV2Interface {
      * @return _totalBurnedWei Total burned rewards (wei).
      */
     function getTotals()
-        external view
+        external
+        view
         returns (
             uint256 _totalRewardsWei,
             uint256 _totalInflationRewardsWei,
@@ -144,8 +139,11 @@ interface IRewardManager is RewardsV2Interface {
      * @return _claimedRewardsWei Claimed rewards for the epoch (wei).
      * @return _burnedRewardsWei Burned rewards for the epoch (wei).
      */
-    function getRewardEpochTotals(uint24 _rewardEpochId)
-        external view
+    function getRewardEpochTotals(
+        uint24 _rewardEpochId
+    )
+        external
+        view
         returns (
             uint256 _totalRewardsWei,
             uint256 _totalInflationRewardsWei,
@@ -154,7 +152,7 @@ interface IRewardManager is RewardsV2Interface {
             uint256 _burnedRewardsWei
         );
 
-     /**
+    /**
      * Returns current reward epoch id.
      */
     function getCurrentRewardEpochId() external view returns (uint24);

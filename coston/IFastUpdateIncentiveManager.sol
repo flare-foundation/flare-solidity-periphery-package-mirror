@@ -9,7 +9,6 @@ import "./IIncreaseManager.sol";
  * Fast update incentive manager interface.
  */
 interface IFastUpdateIncentiveManager is IIncreaseManager {
-
     /// Incentive offer structure.
     struct IncentiveOffer {
         FPA.Range rangeIncrease;
@@ -54,7 +53,10 @@ interface IFastUpdateIncentiveManager is IIncreaseManager {
     function getRange() external view returns (FPA.Range);
 
     /// Viewer for the current value of sample size increase price.
-    function getCurrentSampleSizeIncreasePrice() external view returns (FPA.Fee);
+    function getCurrentSampleSizeIncreasePrice()
+        external
+        view
+        returns (FPA.Fee);
 
     /// Viewer for the current value of the scale itself.
     function getScale() external view returns (FPA.Scale);
