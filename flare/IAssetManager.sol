@@ -12,6 +12,7 @@ import {AvailableAgentInfo} from "./data/AvailableAgentInfo.sol";
 import {RedemptionTicketInfo} from "./data/RedemptionTicketInfo.sol";
 import {RedemptionRequestInfo} from "./data/RedemptionRequestInfo.sol";
 import {CollateralReservationInfo} from "./data/CollateralReservationInfo.sol";
+import {EmergencyPause} from "./data/EmergencyPause.sol";
 import {IAssetManagerEvents} from "./IAssetManagerEvents.sol";
 import {IAgentPing} from "./IAgentPing.sol";
 import {IRedemptionTimeExtension} from "./IRedemptionTimeExtension.sol";
@@ -96,22 +97,18 @@ interface IAssetManager is
     function emergencyPaused() external view returns (bool);
 
     /**
+     * Emergency pause level defines which operations are paused:
+     * NONE - pause is not active,
+     * START_OPERATIONS - prevent starting mint, redeem, liquidation (start/liquidate) and core vault transfer/return,
+     * FULL - everything from START_OPERATIONS, plus prevent finishing or defulating already started mints and redeems,
+     * FULL_AND_TRANSFER - everything from FULL, plus prevent FAsset transfers.
+     */
+    function emergencyPauseLevel() external view returns (EmergencyPause.Level);
+
+    /**
      * The time when emergency pause mode will end automatically.
      */
     function emergencyPausedUntil() external view returns (uint256);
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    // Emergency pause transfers
-
-    /**
-     * If true, the system is in emergency pause mode and most operations (mint, redeem, liquidate) are disabled.
-     */
-    function transfersEmergencyPaused() external view returns (bool);
-
-    /**
-     * The time when emergency pause mode will end automatically.
-     */
-    function transfersEmergencyPausedUntil() external view returns (uint256);
 
     ////////////////////////////////////////////////////////////////////////////////////
     // Asset manager upgrading state
@@ -263,13 +260,6 @@ interface IAssetManager is
         address _agentVault,
         string memory _name
     ) external;
-
-    /**
-     * If the current agent's vault collateral token gets deprecated, the agent must switch with this method.
-     * NOTE: may only be called by the agent vault owner.
-     * NOTE: at the time of switch, the agent must have enough of both collaterals in the vault.
-     */
-    function switchVaultCollateral(address _agentVault, IERC20 _token) external;
 
     /**
      * When current pool collateral token contract (WNat) is replaced by the method setPoolWNatCollateralType,
@@ -808,7 +798,7 @@ interface IAssetManager is
         );
 
     ////////////////////////////////////////////////////////////////////////////////////
-    // Dust
+    // Dust and small ticket management
 
     /**
      * Due to the minting pool fees or after a lot size change by the governance,
@@ -823,6 +813,20 @@ interface IAssetManager is
      * @param _agentVault agent vault address
      */
     function convertDustToTicket(address _agentVault) external;
+
+    /**
+     * If lot size is increased, there may be many tickets less than one lot in the queue.
+     * In extreme cases, this could prevent redemptions, if there weren't any tickets above 1 lot
+     * among the first `maxRedeemedTickets` tickets.
+     * To fix this, call this method. It converts small tickets to dust and when the dust exceeds one lot
+     * adds it to the ticket.
+     * Since the method just cleans the redemption queue it can be called by anybody.
+     * @param _firstTicketId if nonzero, the ticket id of starting ticket; if zero, the starting ticket will
+     *   be the redemption queue's first ticket id.
+     *   When the method finishes, it emits RedemptionTicketsConsolidated event with the nextTicketId
+     *   parameter. If it is nonzero, the method should be invoked again with this value as _firstTicketId.
+     */
+    function consolidateSmallTickets(uint256 _firstTicketId) external;
 
     ////////////////////////////////////////////////////////////////////////////////////
     // Liquidation
