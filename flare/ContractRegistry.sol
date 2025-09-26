@@ -40,6 +40,7 @@ import {IFdcVerification} from "./IFdcVerification.sol";
 import {IFdcHub} from "./IFdcHub.sol";
 import {IFdcRequestFeeConfigurations} from "./IFdcRequestFeeConfigurations.sol";
 import {IAssetManagerController} from "./IAssetManagerController.sol";
+import {IAssetManager} from "./IAssetManager.sol";
 import {IGenericRewardManager} from "./IGenericRewardManager.sol";
 // END AUTO GENERATED - DO NOT EDIT ABOVE THIS LINE
 
@@ -489,6 +490,15 @@ library ContractRegistry {
             IAssetManagerController(
                 FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
                     keccak256(abi.encode("AssetManagerController"))
+                )
+            );
+    }
+
+    function getAssetManagerFXRP() internal view returns (IAssetManager) {
+        return
+            IAssetManager(
+                FLARE_CONTRACT_REGISTRY.getContractAddressByHash(
+                    keccak256(abi.encode("AssetManagerFXRP"))
                 )
             );
     }

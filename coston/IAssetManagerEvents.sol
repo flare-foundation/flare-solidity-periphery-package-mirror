@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
+import {EmergencyPause} from "./data/EmergencyPause.sol";
+
 /**
  * All asset manager events.
  */
@@ -338,6 +340,16 @@ interface IAssetManagerEvents {
     );
 
     /**
+     * Method `consolidateSmallTickets` has finished.
+     * @param firstTicketId first handled ticket id (different from the method param _firstTicketId if it was 0).
+     * @param nextTicketId the first remaining (not handled) ticket id, or 0 if the end of queue was reached.
+     */
+    event RedemptionTicketsConsolidated(
+        uint256 firstTicketId,
+        uint256 nextTicketId
+    );
+
+    /**
      * Due to lot size change, some dust was created for this agent during
      * redemption. Value `dustUBA` is the new amount of dust. Dust cannot be directly redeemed,
      * but it can be self-closed or liquidated and if it accumulates to more than 1 lot,
@@ -513,32 +525,17 @@ interface IAssetManagerEvents {
     );
 
     /**
-     * Collateral token has been marked as deprecated. After the timestamp `validUntil` passes, it will be
-     * considered invalid and the agents who haven't switched their collateral before will be liquidated.
-     */
-    event CollateralTypeDeprecated(
-        uint8 collateralClass,
-        address collateralToken,
-        uint256 validUntil
-    );
-
-    /**
      * Emergency pause was triggered.
      */
-    event EmergencyPauseTriggered(uint256 pausedUntil);
+    event EmergencyPauseTriggered(
+        EmergencyPause.Level externalLevel,
+        uint256 externalPausedUntil,
+        EmergencyPause.Level governanceLevel,
+        uint256 governancePausedUntil
+    );
 
     /**
      * Emergency pause was canceled.
      */
     event EmergencyPauseCanceled();
-
-    /**
-     * Emergency pause transfers was triggered.
-     */
-    event EmergencyPauseTransfersTriggered(uint256 pausedUntil);
-
-    /**
-     * Emergency pause transfers was canceled.
-     */
-    event EmergencyPauseTransfersCanceled();
 }
