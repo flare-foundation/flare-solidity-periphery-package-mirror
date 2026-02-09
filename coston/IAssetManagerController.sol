@@ -4,6 +4,9 @@ pragma solidity >=0.7.6 <0.9;
 import {IAssetManager} from "./IAssetManager.sol";
 
 interface IAssetManagerController {
+    event AssetManagerAdded(address assetManager);
+    event AssetManagerRemoved(address assetManager);
+
     /**
      * Return the list of all asset managers managed by this controller.
      */
