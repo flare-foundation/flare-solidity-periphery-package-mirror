@@ -179,11 +179,6 @@ interface IInstructionsFacet {
     error InvalidPaymentAmount(uint256 requiredAmount);
 
     /**
-     * @notice Reverts if the transaction has already been executed.
-     */
-    error TransactionAlreadyExecuted();
-
-    /**
      * @notice Reverts if the transaction ID is invalid.
      */
     error InvalidTransactionId();
@@ -203,16 +198,6 @@ interface IInstructionsFacet {
      * @param instructionType The invalid instruction type.
      */
     error InvalidInstructionType(uint256 instructionType);
-
-    /**
-     * @notice Reverts if the value is zero.
-     */
-    error ValueZero();
-
-    /**
-     * @notice Reverts if the address is zero.
-     */
-    error AddressZero();
 
     /**
      * @notice Reverts if the collateral reservation ID is unknown.
@@ -269,15 +254,6 @@ interface IInstructionsFacet {
         IPayment.Proof calldata _proof,
         string calldata _xrplAddress
     ) external payable;
-
-    /**
-     * @notice Returns true if the transaction id has already been used.
-     * @param _transactionId The transaction id to check.
-     * @return True if used, false otherwise.
-     */
-    function isTransactionIdUsed(
-        bytes32 _transactionId
-    ) external view returns (bool);
 
     /**
      * @notice Returns the transaction id for a given collateral reservation id.

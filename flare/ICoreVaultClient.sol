@@ -2,6 +2,7 @@
 pragma solidity >=0.7.6 <0.9;
 
 import {IPayment} from ".//IPayment.sol";
+import {IXRPPayment} from ".//IXRPPayment.sol";
 
 /**
  * Core vault
@@ -76,6 +77,11 @@ interface ICoreVaultClient {
     );
 
     /**
+     * Funds have been added to the core vault operating account.
+     */
+    event CoreVaultFundsAdded(uint256 amountUBA);
+
+    /**
      * Agent can transfer their backing to core vault.
      * They then get a redemption requests which the owner pays just like any other redemption request.
      * After that, the agent's collateral is released.
@@ -132,6 +138,14 @@ interface ICoreVaultClient {
     function redeemFromCoreVault(
         uint256 _lots,
         string memory _redeemerUnderlyingAddress
+    ) external;
+
+    /**
+     * Confirm a donation payment made to the core vault underlying address.
+     * @param _payment FDC payment proof
+     */
+    function confirmCoreVaultDonation(
+        IXRPPayment.Proof calldata _payment
     ) external;
 
     /**
