@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import "./IRelay.sol";
-import "./IAddressValidityVerification.sol";
-import "./IBalanceDecreasingTransactionVerification.sol";
-import "./IConfirmedBlockHeightExistsVerification.sol";
-import "./IEVMTransactionVerification.sol";
-import "./IPaymentVerification.sol";
-import "./IReferencedPaymentNonexistenceVerification.sol";
-import "./IWeb2JsonVerification.sol";
+import {IRelay} from "./IRelay.sol";
+import {IAddressValidityVerification} from "./IAddressValidityVerification.sol";
+import {IBalanceDecreasingTransactionVerification} from "./IBalanceDecreasingTransactionVerification.sol";
+import {IConfirmedBlockHeightExistsVerification} from "./IConfirmedBlockHeightExistsVerification.sol";
+import {IEVMTransactionVerification} from "./IEVMTransactionVerification.sol";
+import {IPaymentVerification} from "./IPaymentVerification.sol";
+import {IReferencedPaymentNonexistenceVerification} from "./IReferencedPaymentNonexistenceVerification.sol";
+import {IWeb2JsonVerification} from "./IWeb2JsonVerification.sol";
+import {IXRPPaymentVerification} from "./IXRPPaymentVerification.sol";
+import {IXRPPaymentNonexistenceVerification} from "./IXRPPaymentNonexistenceVerification.sol";
 
 /**
  * FdcVerification interface.
@@ -20,7 +22,9 @@ interface IFdcVerification is
     IEVMTransactionVerification,
     IPaymentVerification,
     IReferencedPaymentNonexistenceVerification,
-    IWeb2JsonVerification
+    IWeb2JsonVerification,
+    IXRPPaymentVerification,
+    IXRPPaymentNonexistenceVerification
 {
     /**
      * The FDC protocol id.
