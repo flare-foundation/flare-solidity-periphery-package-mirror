@@ -1,7 +1,7 @@
 {
   "name": "@flarenetwork/flare-periphery-contracts",
   "description": "Smart contracts for all Flare chains",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "author": "Flare Network",
   "license": "MIT",
   "keywords": [
@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",
+    "@openzeppelin/contracts-upgradeable": "^4.6.0",
     "@layerzerolabs/lz-evm-protocol-v2": "^3.0.0"
   },
   "devDependencies": {
