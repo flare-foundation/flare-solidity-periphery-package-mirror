@@ -1,7 +1,7 @@
 {
   "name": "@flarenetwork/flare-periphery-contracts",
   "description": "Smart contracts for all Flare chains",
-  "version": "0.1.47",
+  "version": "0.1.48",
   "author": "Flare Network",
   "license": "MIT",
   "keywords": [
