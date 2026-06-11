@@ -1,19 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import "./protocol/interfaces/IIVoterRegistry.sol";
+import {IIVoterRegistry} from "./protocol/interfaces/IIVoterRegistry.sol";
+import {Signature} from "./ISignature.sol";
 
 interface IVoterPreRegistry {
     /// Event emitted when a voter is pre-registered.
     event VoterPreRegistered(
         address indexed voter,
-        uint256 indexed rewardEpochId
+        uint32 indexed rewardEpochId
     );
 
     /// Event emitted when a voter registration failed.
     event VoterRegistrationFailed(
         address indexed voter,
-        uint256 indexed rewardEpochId
+        uint32 indexed rewardEpochId
     );
 
     /**
@@ -23,7 +24,7 @@ interface IVoterPreRegistry {
      */
     function preRegisterVoter(
         address _voter,
-        IIVoterRegistry.Signature calldata _signature
+        Signature calldata _signature
     ) external;
 
     /**
@@ -31,7 +32,7 @@ interface IVoterPreRegistry {
      * @param _rewardEpochId The reward epoch id.
      */
     function getPreRegisteredVoters(
-        uint24 _rewardEpochId
+        uint256 _rewardEpochId
     ) external view returns (address[] memory);
 
     /**
@@ -40,7 +41,18 @@ interface IVoterPreRegistry {
      * @param _rewardEpochId The reward epoch id.
      */
     function isVoterPreRegistered(
-        uint24 _rewardEpochId,
+        uint256 _rewardEpochId,
         address _voter
     ) external view returns (bool);
+
+    /**
+     * Returns voter's signature for a given reward epoch and voter address, reverts if not pre-registered.
+     * @param _rewardEpochId The reward epoch id.
+     * @param _voter The voter address.
+     * @return _signature The voter's signature.
+     */
+    function getVoterSignature(
+        uint256 _rewardEpochId,
+        address _voter
+    ) external view returns (Signature memory);
 }
