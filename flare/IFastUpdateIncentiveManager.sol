@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import {Range, SampleSize, Fee, Scale, Precision} from "./IFixedPointArithmetic.sol";
-import {IFastUpdatesConfiguration} from "./IFastUpdatesConfiguration.sol";
-import {IIncreaseManager} from "./IIncreaseManager.sol";
+import "./IFixedPointArithmetic.sol" as FPA;
+import "./IFastUpdatesConfiguration.sol";
+import "./IIncreaseManager.sol";
 
 /**
  * Fast update incentive manager interface.
@@ -11,16 +11,16 @@ import {IIncreaseManager} from "./IIncreaseManager.sol";
 interface IFastUpdateIncentiveManager is IIncreaseManager {
     /// Incentive offer structure.
     struct IncentiveOffer {
-        Range rangeIncrease;
-        Range rangeLimit;
+        FPA.Range rangeIncrease;
+        FPA.Range rangeLimit;
     }
 
     /// Event emitted when an incentive is offered.
     event IncentiveOffered(
         uint24 indexed rewardEpochId,
-        Range rangeIncrease,
-        SampleSize sampleSizeIncrease,
-        Fee offerAmount
+        FPA.Range rangeIncrease,
+        FPA.SampleSize sampleSizeIncrease,
+        FPA.Fee offerAmount
     );
 
     /// Event emitted when inflation rewards are offered.
@@ -44,31 +44,34 @@ interface IFastUpdateIncentiveManager is IIncreaseManager {
     function offerIncentive(IncentiveOffer calldata _offer) external payable;
 
     /// Viewer for the current value of the expected sample size.
-    function getExpectedSampleSize() external view returns (SampleSize);
+    function getExpectedSampleSize() external view returns (FPA.SampleSize);
 
     /// Viewer for the current value of the unit delta's precision (the fractional part of the scale).
-    function getPrecision() external view returns (Precision);
+    function getPrecision() external view returns (FPA.Precision);
 
     /// Viewer for the current value of the per-block variation range.
-    function getRange() external view returns (Range);
+    function getRange() external view returns (FPA.Range);
 
     /// Viewer for the current value of sample size increase price.
-    function getCurrentSampleSizeIncreasePrice() external view returns (Fee);
+    function getCurrentSampleSizeIncreasePrice()
+        external
+        view
+        returns (FPA.Fee);
 
     /// Viewer for the current value of the scale itself.
-    function getScale() external view returns (Scale);
+    function getScale() external view returns (FPA.Scale);
 
     /// Viewer for the base value of the scale itself.
-    function getBaseScale() external view returns (Scale);
+    function getBaseScale() external view returns (FPA.Scale);
 
     /// The maximum amount by which the expected sample size can be increased by an incentive offer.
     /// This is controlled by governance and forces a minimum cost to increasing the sample size greatly,
     /// which would otherwise be an attack on the protocol.
-    function sampleIncreaseLimit() external view returns (SampleSize);
+    function sampleIncreaseLimit() external view returns (FPA.SampleSize);
 
     /// The maximum value that the range can be increased to by an incentive offer.
-    function rangeIncreaseLimit() external view returns (Range);
+    function rangeIncreaseLimit() external view returns (FPA.Range);
 
     /// The price for increasing the per-block range of variation by 1, prorated for the actual amount of increase.
-    function rangeIncreasePrice() external view returns (Fee);
+    function rangeIncreasePrice() external view returns (FPA.Fee);
 }

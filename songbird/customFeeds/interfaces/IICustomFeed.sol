@@ -6,6 +6,12 @@ pragma solidity >=0.7.6 <0.9;
  */
 interface IICustomFeed {
     /**
+     * Returns the feed id.
+     * @return _feedId The feed id.
+     */
+    function feedId() external view returns (bytes21 _feedId);
+
+    /**
      * Returns the current feed.
      * @return _value The value of the feed.
      * @return _decimals The decimals of the feed.
@@ -15,12 +21,6 @@ interface IICustomFeed {
         external
         payable
         returns (uint256 _value, int8 _decimals, uint64 _timestamp);
-
-    /**
-     * Returns the feed id.
-     * @return _feedId The feed id.
-     */
-    function feedId() external view returns (bytes21 _feedId);
 
     /**
      * Calculates the fee for fetching the feed.

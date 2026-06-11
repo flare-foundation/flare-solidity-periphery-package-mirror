@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.6 <0.9;
 
-import {IRandomProvider} from "./IRandomProvider.sol";
+import "./IRandomProvider.sol";
 
 /**
  * Submission interface.
