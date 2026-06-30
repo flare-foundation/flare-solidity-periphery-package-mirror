@@ -112,7 +112,7 @@ interface IAssetManager is
      * Emergency pause level defines which operations are paused:
      * NONE - pause is not active,
      * START_OPERATIONS - prevent starting mint, redeem, liquidation (start/liquidate) and core vault transfer/return,
-     * FULL - everything from START_OPERATIONS, plus prevent finishing or defulating already started mints and redeems,
+     * FULL - everything from START_OPERATIONS, plus prevent finishing or defaulting already started mints and redeems,
      * FULL_AND_TRANSFER - everything from FULL, plus prevent FAsset transfers.
      */
     function emergencyPauseLevel() external view returns (EmergencyPause.Level);
