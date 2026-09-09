@@ -197,7 +197,10 @@ interface IInstructionsFacet {
      * @notice Reverts if the instruction type is invalid.
      * @param instructionType The invalid instruction type.
      */
-    error InvalidInstructionType(uint256 instructionType);
+    error InvalidInstructionType(
+        uint256 instructionType,
+        uint256 expectedVaultType
+    );
 
     /**
      * @notice Reverts if the collateral reservation ID is unknown.
